@@ -27,4 +27,5 @@ function setup() {
 
     var root = build_kdtree(data);
     console.log(root);
+    generate_dot(root);
 }

@@ -1,4 +1,5 @@
 k = 2;
+let output = "";
 
 class Node {
   constructor(point, axis) {
@@ -19,7 +20,6 @@ function getHeight(node) {
 
   return height;
 }
-function generate_dot(node) {}
 
 function build_kdtree(points, depth = 0) {
   var n = points.length;
@@ -64,3 +64,32 @@ function naive_closest_point(node, point, depth = 0, best = null) {}
 function closest_point(node, point, depth = 0) {}
 
 function range_query_circle(node, center, radio, queue, depth = 0) {}
+
+
+function inOrder(node) {
+    if (node != null) {
+        if (node.left != null) {
+            output += "\n  \"" + node.point[0] + ", " + node.point[1] + "\" -> \"" + node.left.point[0] + ", " + node.left.point[1] + "\";";
+            inOrder(node.left);
+        }
+        if (node.right != null) {
+            output += "\n  \"" + node.point[0] + ", " + node.point[1] + "\" -> \"" + node.right.point[0] + ", " + node.right.point[1] + "\";";
+            inOrder(node.right);
+        }
+    }
+}
+
+
+function generate_dot(node) {
+    // const fs = require("fs");
+
+    inOrder(node);
+    output = "digraph G {" + output + "\n}";
+
+    // fs.writeFile("kdtree.dot", output, (err) => {
+    //     if (err) throw err;
+    // });
+
+    console.log(output);
+    // console.log("archivo generado");
+}
