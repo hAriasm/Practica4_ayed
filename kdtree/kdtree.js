@@ -9,7 +9,16 @@ class Node {
     }
 }
 
-function getHeight(node) { }
+function getHeight(node) {
+    let height = -1;
+    if (node == null) {
+        return height;
+    } else {
+        height = 1 + Math.max(getHeight(node.left), getHeight(node.right));
+    }
+
+    return height;
+}
 function generate_dot(node) { }
 
 function build_kdtree(points, depth = 0) {
