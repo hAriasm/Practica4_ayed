@@ -14,7 +14,7 @@ function setup() {
     }
 
     var data = [];
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 6; i++) {
         var x = Math.floor(Math.random() * height);
         var y = Math.floor(Math.random() * height);
         data.push([x, y]);
