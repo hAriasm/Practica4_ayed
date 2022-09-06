@@ -62,12 +62,10 @@ function naive_closest_point(node, point, depth = 0, best = null, minDistance = 
     var axis = depth % k;
 
     if (node == null) {
-        console.log("retornar el mejor: " + best);
         return best;
     }
 
     currentDistance = distance(point, node.point);
-    console.log("curr distance: " + currentDistance); 
     if(minDistance < 0 || minDistance > currentDistance) {
         minDistance = currentDistance; 
         best = node.point;
@@ -75,10 +73,8 @@ function naive_closest_point(node, point, depth = 0, best = null, minDistance = 
     console.log("best: " + best);
     
     if (point[axis] <= node.point[axis]) {
-        console.log("[depth = " + depth + "] menor, ir por la izquierda");
         return naive_closest_point(node.left, point, depth + 1, best, minDistance);
     } else {
-        console.log("[depth = " + depth + "] mayor, ir por la derecha");
         return naive_closest_point(node.right, point, depth + 1, best, minDistance);
     }
 }
