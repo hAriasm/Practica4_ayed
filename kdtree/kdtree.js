@@ -58,13 +58,52 @@ function distanceSquared(point1, point2) {
   return Math.sqrt(distance);
 }
 
-function closest_point_brute_force(points, point) {}
-function naive_closest_point(node, point, depth = 0, best = null) {}
+function closest_point_brute_force(points, point) {
+var menorDistancia = 99999;
+var tempPoint = null;
+  for(var i = 0 ; i< points.length ; i++){
+    var temp = distance(points[i],point);
+    if(menorDistancia > temp) {
+      menorDistancia = temp;
+      tempPoint = points[i];
+    }
+    }
+  
+  console.log("la menor dinstancia es: " + menorDistancia);
+  return tempPoint;
+}
 
-function closest_point(node, point, depth = 0) {}
+function naive_closest_point(node, point, depth = 0, best = null, minDistance = -1) {
+    var axis = depth % k;
 
-function range_query_circle(node, center, radio, queue, depth = 0) {}
+    if (node == null) {
+        console.log("retornar el mejor: " + best);
+        return best;
+    }
 
+    currentDistance = distance(point, node.point);
+    console.log("curr distance: " + currentDistance); 
+    if(minDistance < 0 || minDistance > currentDistance) {
+        minDistance = currentDistance; 
+        best = node.point;
+    }
+    console.log("best: " + best);
+    
+    if (point[axis] <= node.point[axis]) {
+        console.log("[depth = " + depth + "] menor, ir por la izquierda");
+        return naive_closest_point(node.left, point, depth + 1, best, minDistance);
+    } else {
+        console.log("[depth = " + depth + "] mayor, ir por la derecha");
+        return naive_closest_point(node.right, point, depth + 1, best, minDistance);
+    }
+}
+
+function distance(point1, point2) {
+    return Math.sqrt(
+        Math.pow(point1[1] - point2[1], 2) +
+        Math.pow(point1[0] - point2[0], 2)
+    );
+}
 
 function inOrder(node) {
     if (node != null) {
