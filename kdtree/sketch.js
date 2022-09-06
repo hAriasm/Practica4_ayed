@@ -1,11 +1,12 @@
 function setup() {
     var width = 600;
     var height = 600;
+    var scale = 10; 
     createCanvas(width, height);
 
     background(0);
-    for (var x = 0; x < width; x += width / 10) {
-        for (var y = 0; y < height; y += height / 10) {
+    for (var x = 0; x < width; x += width / scale) {
+        for (var y = 0; y < height; y += height / scale) {
             stroke(125, 125, 125);
             strokeWeight(1);
             line(x, 0, x, height);
@@ -40,17 +41,16 @@ function setup() {
     // }
 
     var root = build_kdtree(data);
-    console.log(root);
     generate_dot(root);
 
-    pointN = [3, 4];
+    pointN = [Math.floor(Math.random() * scale), Math.floor(Math.random() * scale)];
     drawPoint(pointN, 255, 0, 0);
 
     var best = naive_closest_point(root, pointN);
     console.log("best: " + best);
 
     var bestFuerzaBruta = closest_point_brute_force(data,pointN);
-    console.log("best bestFuerzaBruta: " + bestFuerzaBruta);
+    console.log(" best FuerzaBruta: " + bestFuerzaBruta);
 
 }
 
