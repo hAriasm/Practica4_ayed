@@ -17,17 +17,40 @@ document.querySelector('#predict').addEventListener('click', () =>{
 
     trainingSet().forEach((point)=> {
 
+        distances.push(Math.sqrt(((x-point.humidity)**2)+((y-point.pressure)**2)))
+    }
+    )
+    let redNeighbors = 0
+    let blueNeighbors = 0
+
        // https://www.youtube.com/watch?v=dT4SrxoQS-4  -----link referencia
-
-
     })
 
+    for(let k=1; k<=5; k++) {
+        const minDistance = Math.min.apply(Math, distances)
+        const index = distances.indexOf(minDistance)
+        chart.data.datasets[0].pointBackgroundColor[index] == 'red' ? redNeighbors++ : blueNeighbors++
+        distances[index] = +Infinity
+    }
+if(redNeighbors>blueNeighbors) {
+documen
 
-)
 
 
 }
 
 
 
-)
+
+
+
+
+
+
+    }
+
+
+
+
+
+
