@@ -33,24 +33,12 @@ document.querySelector('#predict').addEventListener('click', () =>{
         distances[index] = +Infinity
     }
 if(redNeighbors>blueNeighbors) {
-documen
-
-
-
+document.querySelector('#output').innerHTML = 'Most probably it will no rain'
+chart.data.datasets[0].pointBackgroundColor[chart.data.datasets[0].data.length-1] = 'red'
 }
-
-
-
-
-
-
-
-
-
-    }
-
-
-
-
-
-
+else {
+    document.querySelector('#output').innerHTML = 'Most probably it will rain'
+    chart.data.datasets[0].pointBackgroundColor[chart.data.datasets[0].data.length-1] = 'blue'
+}
+chart.update()
+})
