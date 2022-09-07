@@ -58,7 +58,7 @@ function closest_point_brute_force(points, point) {
 
 }
 
-function naive_closest_point(node, point, depth = 0, best = null, minDistance = -1) {
+function naive_closest_point(node, point, depth = 0, best = null, minDistance = Number.MAX_VALUE) {
     var axis = depth % k;
 
     if (node == null) {
@@ -66,11 +66,11 @@ function naive_closest_point(node, point, depth = 0, best = null, minDistance = 
     }
 
     currentDistance = distance(point, node.point);
-    if(minDistance < 0 || minDistance > currentDistance) {
+    if(currentDistance < minDistance) {
         minDistance = currentDistance; 
         best = node.point;
     }
-    console.log("best: " + best);
+    // console.log("best: " + best);
     
     if (point[axis] <= node.point[axis]) {
         return naive_closest_point(node.left, point, depth + 1, best, minDistance);
@@ -79,10 +79,10 @@ function naive_closest_point(node, point, depth = 0, best = null, minDistance = 
     }
 }
 
-function distance(point1, point2) {
+function distance(a, b) {
     return Math.sqrt(
-        Math.pow(point1[1] - point2[1], 2) +
-        Math.pow(point1[0] - point2[0], 2)
+        Math.pow(a[1] - b[1], 2) +
+        Math.pow(a[0] - b[0], 2)
     );
 }
 
