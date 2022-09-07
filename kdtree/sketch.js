@@ -48,6 +48,10 @@ function setup() {
 
     var best = naive_closest_point(root, pointN);
     console.log("best: " + best);
+
+    var bestFuerzaBruta = closest_point_brute_force(data,pointN);
+    console.log(" best FuerzaBruta: " + bestFuerzaBruta);
+
 }
 
 function drawPoint(point, r = 255, g = 255, b = 255) {
