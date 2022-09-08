@@ -18,7 +18,7 @@ datasets:
 ]
 }
 }
-function charOptions() {
+function chartOptions() {
 return {
         maintainAspectRatio: false ,
         legend:
