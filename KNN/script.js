@@ -1,7 +1,7 @@
-let chart = new Chart(document.querySelector('#chart'), {
+let chart = new chart(document.querySelector('#chart'), {
 type: 'scatter',
-data: CharacterData() , 
-options: charOptions()
+data: chartData() , 
+options: chartOptions()
 })
 
 document.querySelector('#plot').addEventListener('click', ()=> {
@@ -23,7 +23,7 @@ document.querySelector('#predict').addEventListener('click', () =>{
     let redNeighbors = 0
     let blueNeighbors = 0
 
-       // https://www.youtube.com/watch?v=dT4SrxoQS-4  -----link referencia
+     
     })
 
     for(let k=1; k<=5; k++) {
