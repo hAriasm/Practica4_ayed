@@ -62,7 +62,7 @@ function closest_point_brute_force(points, point) {
   var menorDistancia = 99999;
   var tempPoint = null;
   for (var i = 0; i < points.length; i++) {
-    var temp = distance(points[i], point);
+    var temp = distanceSquared(points[i], point);
     if (menorDistancia > temp) {
       menorDistancia = temp;
       tempPoint = points[i];
@@ -82,7 +82,7 @@ function naive_closest_point(node, point, depth = 0, best = null, minDistance = 
 
   console.log("node.point: " + node.point);
 
-  currentDistance = distance(point, node.point);
+  currentDistance = distanceSquared(point, node.point);
   if (minDistance == null || currentDistance < minDistance) {
     minDistance = currentDistance;
     best = node.point;
@@ -96,41 +96,46 @@ function naive_closest_point(node, point, depth = 0, best = null, minDistance = 
   }
 }
 
-function closest_point(node, point, depth = 0, best = null, minDistance = null) {
+function closest_point(node, point, depth = 0, best = null) {
   var axis = depth % k;
   var bestPoint;
-  
+
   if (node == null) {
     return best;
   }
 
-  console.log("node.point: " + node.point);
-  
-  currentDistance = distance(point, node.point);
-  if (minDistance == null || currentDistance < minDistance) {
-    minDistance = currentDistance;
+  if (best == null) {
     best = node.point;
   }
 
+  console.log("node.point: " + node.point);
+
+  if (distanceSquared(point, node.point) < distanceSquared(point, best)) {
+    best = node.point;
+  }
+
+
   if (point[axis] <= node.point[axis]) {
-    bestPoint = closest_point(node.left, point, depth + 1, best, minDistance);
-    if(Math.abs(point[axis] - node.point[axis]) < distance(point, bestPoint)) {
-      bestPoint = closest_point(node.right, point, depth + 1, best, minDistance); 
+    bestPoint = closest_point(node.left, point, depth + 1, best);
+    if (Math.abs(point[axis] - node.point[axis]) < distanceSquared(point, bestPoint)) {
+      bestPoint = closest_point(node.right, point, depth + 1, best);
     }
   } else {
-    bestPoint = closest_point(node.right, point, depth + 1, best, minDistance);
-    if(Math.abs(point[axis] - node.point[axis]) < distance(point, bestPoint)) {
-      bestPoint = closest_point(node.left, point, depth + 1, best, minDistance); 
+    bestPoint = closest_point(node.right, point, depth + 1, best);
+    if (Math.abs(point[axis] - node.point[axis]) < distanceSquared(point, bestPoint)) {
+      bestPoint = closest_point(node.left, point, depth + 1, best);
     }
   }
   return bestPoint;
 }
 
-function distance(a, b) {
-  return Math.sqrt(
-    Math.pow(a[1] - b[1], 2) +
-    Math.pow(a[0] - b[0], 2)
-  );
+function distanceSquared(point1, point2) {
+  var distance = 0;
+
+  for (var i = 0; i < k; i++) {
+    distance += Math.pow((point1[i] - point2[i]), 2);
+  }
+  return Math.sqrt(distance);
 }
 
 function inOrder(node) {
