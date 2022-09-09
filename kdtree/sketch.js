@@ -19,7 +19,26 @@ function setup() {
         }
     }
 
-    var data = [];
+    // var data = [
+    //     [40, 70],
+    //     [70, 130],
+    //     [90, 40],
+    //     [110, 100],
+    //     [140, 110],
+    //     [160, 100]
+    // ];
+
+    
+    var data = [
+        [40, 70],
+        [70, 130],
+        [90, 40],
+        [110, 100],
+        [140, 110],
+        [160, 100],
+        [150, 30]
+    ];
+
     // data.push([1, 3]);
     // data.push([2, 1]);
     // data.push([2, 6]);
@@ -30,16 +49,16 @@ function setup() {
     // data.push([8, 4]);
     // data.push([9, 1]);
 
-    data.push([40, 70]);
-    data.push([70, 130]);
-    data.push([90, 40]);
-    data.push([100, 100]);
-    data.push([140, 110]);
-    data.push([150, 30]);
-    data.push([175, 100]);
+    // data.push([40, 70]);
+    // data.push([70, 130]);
+    // data.push([90, 40]);
+    // data.push([100, 100]);
+    // data.push([140, 110]);
+    // data.push([150, 30]);
+    // data.push([175, 100]);
 
     for (let i = 0; i < data.length; i++) {
-        drawPoint(data[i]);// 200 -y para q se dibuje  ropiadamente
+        drawPoint(data[i]);
     }
 
     // for (let i = 0; i < 12; i++) {
@@ -58,7 +77,7 @@ function setup() {
 
     // pointN = [Math.floor(Math.random() * maxx), Math.floor(Math.random() * maxy)];
     pointN = [140, 90];
-    drawPoint(pointN, 255, 0, 0);
+    drawPoint(pointN, 0, 255, 0);
 
     var best = naive_closest_point(root, pointN);
     console.log("naive closest point: " + best);
