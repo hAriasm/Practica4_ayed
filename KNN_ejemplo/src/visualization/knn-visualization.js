@@ -19,7 +19,7 @@ export default class KNNVisualization extends Visualization {
     return settings;
   }
   createSettingsGroupForK() {
-    const labelText = 'Amount of neighbors, k: ';
+    const labelText = 'Cantidad de vecinos, k: ';
     const labelAttributes = [
       ['for', 'range-k'],
       ['id', 'range-k-label']
