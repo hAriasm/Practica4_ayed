@@ -73,26 +73,27 @@ function closest_point_brute_force(points, point) {
   return tempPoint;
 }
 
-function naive_closest_point(node, point, depth = 0, best = null, minDistance = null) {
+function naive_closest_point(node, point, depth = 0, best = null) {
   var axis = depth % k;
 
   if (node == null) {
     return best;
   }
 
-  console.log("node.point: " + node.point);
-
-  currentDistance = distanceSquared(point, node.point);
-  if (minDistance == null || currentDistance < minDistance) {
-    minDistance = currentDistance;
+  if (best == null) {
     best = node.point;
   }
-  // console.log("best: " + best);
+
+  console.log("node.point: " + node.point);
+
+  if (distanceSquared(point, node.point) < distanceSquared(point, best)) {
+    best = node.point;
+  }
 
   if (point[axis] <= node.point[axis]) {
-    return naive_closest_point(node.left, point, depth + 1, best, minDistance);
+    return naive_closest_point(node.left, point, depth + 1, best);
   } else {
-    return naive_closest_point(node.right, point, depth + 1, best, minDistance);
+    return naive_closest_point(node.right, point, depth + 1, best);
   }
 }
 
