@@ -1,4 +1,4 @@
-let chart = new chart(document.querySelector('#chart'), {
+let chart = new Chart(document.querySelector('#chart'), {
 type: 'scatter',
 data: chartData() , 
 options: chartOptions()
