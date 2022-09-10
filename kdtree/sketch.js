@@ -124,17 +124,32 @@ function drawPoint(point, r = 255, g = 255, b = 255) {
 
 }
 
-
 function graficarKNN(){
     var cantidadK= document.getElementById("cantidadK").value;
     var knn=findKNN(root,pointP,parseInt(cantidadK)).nearestNodes;
-    for(let i=0;i<knn.length;i++){
-        colorMode(HSB);
-        fill(222, 204, 100);
-        circle(knn[i].point[0],height-knn[i].point[1],6); //200-y para q se dibuje apropiadamente 
+
+   
+    var data = [
+        [40, 70],
+        [70, 130],
+        [90, 40],
+        [110, 100],
+        [140, 110],
+        [160, 100],
+        [150, 30]
+    ];
+    for (let i = 0; i < data.length; i++) {
+        drawPoint(data[i]);
+    }
+    pointN = [140, 90];
+    drawPoint(pointN, 0, 255, 0);
+
+   for(let i=0;i<knn.length;i++){
+        fill(0, 0, 255);
+        circle(knn[i].point[0]*width/maxx,height-knn[i].point[1]*height / maxy,10); //200-y para q se dibuje apropiadamente 
         console.log(knn[i].point);
     }
 }
 
- 
+
  
