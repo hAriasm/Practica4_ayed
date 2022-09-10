@@ -84,7 +84,7 @@ function setup() {
     //     text(x + ',' + y, x + 5, height - y);// 200 -y para q se dibuje  ropiadamente
     // }
 
-    var root = build_kdtree(data);
+    root = build_kdtree(data);
     generate_dot(root);
 
     // pointN = [Math.floor(Math.random() * maxx), Math.floor(Math.random() * maxy)];
@@ -124,6 +124,17 @@ function drawPoint(point, r = 255, g = 255, b = 255) {
 
 }
 
+
+function graficarKNN(){
+    var cantidadK= document.getElementById("cantidadK").value;
+    var knn=findKNN(root,pointP,parseInt(cantidadK)).nearestNodes;
+    for(let i=0;i<knn.length;i++){
+        colorMode(HSB);
+        fill(222, 204, 100);
+        circle(knn[i].point[0],height-knn[i].point[1],6); //200-y para q se dibuje apropiadamente 
+        console.log(knn[i].point);
+    }
+}
 
  
  
