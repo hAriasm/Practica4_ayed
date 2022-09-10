@@ -8,15 +8,7 @@ class Node {
     this.right = null;
     this.axis = axis;
   }
-}
-class Rectangle {
-  constructor (x, y, w, h) {
-    this.x = x; // center
-    this.y = y;
-    this.w = w; // half width
-    this.h = h; // half height
-  }
-}
+} 
 
 function getHeight(node) {
   let height = -1;
@@ -207,3 +199,73 @@ function generate_dot(node) {
   console.log(output);
   // console.log("archivo generado");
 }
+
+
+var queue ;
+function findKNN(node,point,KN = null){
+ // console.log("node: " + node  + " point: " + point + " KN: " + KN);
+    KN = KN || 1;
+    console.log("kn: " + KN);
+    queue = new BPQ(KN);
+    scannedNodes = [];
+    console.log(node);
+    return KNN(node,point);
+}
+function KNN(node,point){
+    if (node === null) return;
+      scannedNodes.push(node);
+    // Agregar punto actual a BPQ
+    console.log("node: " + node  + " point: " + point );
+
+    queue.add(node, distanceSquared(node.point, point));
+    // Busca de forma recursiva la mitad del árbol que contiene el punto de prueba
+    if (point[node.axis] < node.point[node.axis]) {//comprobar la izquierda
+        KNN(node.left,point);
+        var otherNode = node.right;
+    }else {// Comprobar la derecha
+        KNN(node.right,point);
+        var otherNode = node.left;
+    }
+    //Si la hiperesfera candidata cruza este plano de división, mira el otro lado del plano examinando el otro subárbol
+    var delta = Math.abs(node.point[node.axis] - point[node.axis]);
+    if (!queue.isFull() || delta < queue.maxPriority()) {
+        KNN(otherNode,point);
+    }
+    return {
+        nearestNodes: queue.values,
+        scannedNodes: scannedNodes,
+        maxDistance: queue.maxPriority()
+    };
+}
+function BPQ(capacity) {
+  this.capacity = capacity;
+  this.elements = [];
+}
+BPQ.prototype.isFull = function() { 
+  return this.elements.length === this.capacity; 
+};
+BPQ.prototype.isEmpty = function() { 
+  return this.elements.length === 0; 
+};
+BPQ.prototype.maxPriority = function() {
+  return this.elements[this.elements.length - 1].priority;
+};
+Object.defineProperty(BPQ.prototype, "values", {
+  get: function() { return this.elements.map(function(d) { return d.value; }); }
+});
+BPQ.prototype.add = function(value, priority) {
+  var q = this.elements,d = { value: value, priority: priority };
+  if (this.isEmpty()) { 
+      q.push(d); 
+  } else {
+      for (var i = 0; i < q.length; i++){
+          if (priority < q[i].priority){
+              q.splice(i, 0, d);
+              break;
+          }else if ( (i == q.length-1) && !this.isFull() ) {
+              q.push(d);
+          }
+      }
+  }
+  this.elements = q.slice(0, this.capacity);
+}; 

@@ -1,9 +1,7 @@
 
 var maxx = 250;
 var maxy = 200;
-var data = [];
-var pointP = [140 ,90];
-var root;
+
 function setup() {
     var width = 800;
     var height = 600;
@@ -21,35 +19,17 @@ function setup() {
         }
     }
 
-    // var data = [];
-    // data.push([1, 3]);  
-    // data.push([2, 1]);
-    // data.push([2, 6]);
-    // data.push([5, 5]);
-    // data.push([5, 9]);
-    // data.push([6, 8]);
-    // data.push([7, 2]);
-    // data.push([8, 4]);
-    // data.push([9, 1]);
-    // var data = [
-    //     [40, 70],
-    //     [70, 130],
-    //     [90, 40],
-    //     [110, 100],
-    //     [140, 110],
-    //     [160, 100]
-    // ];
-
-    var data = [
-        [40, 70],
-        [70, 130],
-        [90, 40],
-        [110, 100],
-        [140, 110],
-        [160, 100],
-        [150, 30]
-    ];
-
+    var data = [];
+    data.push([1, 3]);  
+    data.push([2, 1]);
+    data.push([2, 6]);
+    data.push([5, 5]);
+    data.push([5, 9]);
+    data.push([6, 8]);
+    data.push([7, 2]);
+    data.push([8, 4]);
+    data.push([9, 1]);
+ 
     // data.push([1, 3]);
     // data.push([2, 1]);
     // data.push([2, 6]);
@@ -83,32 +63,11 @@ function setup() {
     //     text(x + ',' + y, x + 5, height - y);// 200 -y para q se dibuje  ropiadamente
     // }
 
-    var root = build_kdtree(data);
-    generate_dot(root);
+    
 
-    // pointN = [Math.floor(Math.random() * maxx), Math.floor(Math.random() * maxy)];
-    pointN = [140, 90];
-    drawPoint(pointN, 0, 255, 0);
 
-    var best = naive_closest_point(root, pointN);
-    console.log("naive closest point: " + best);
+    
 
-    var best2 = closest_point(root, pointN);
-    console.log("closest point: " + best2);
-
-    var bestFuerzaBruta = closest_point_brute_force(data, pointN);
-    console.log(" best FuerzaBruta: " + bestFuerzaBruta);
-    rectMode ( CENTER );
-
-     rect(mouseX, mouseX, 55, 55);
-
-     var cantidadK  = 4 ;
-     var knn=findKNN(root,pointP ).nearestNodes;
-     for(let i=0;i<knn.length;i++){
-         fill(222, 15, 15);
-         circle(knn[i].point[0],height-knn[i].point[1],6); //200-y para q se dibuje apropiadamente 
-         console.log("point" +knn[i].point);
-     }
 }
 
 function drawPoint(point, r = 255, g = 255, b = 255) {
@@ -119,10 +78,7 @@ function drawPoint(point, r = 255, g = 255, b = 255) {
     circle(x * width / maxx, height - y * height / maxy, 10); // 200 -y para q se dibuje apropiadamente
     textSize(16);
     text(x + ', ' + y, x * width / maxx + 5, height - y * height / maxy - 5);
-
+ 
 
 }
 
-
- 
- 

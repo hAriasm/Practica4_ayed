@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>D3ML Demo</title>
+    <title>KNN</title>
     <script src="./lib/d3ml.js"></script>
 </head>
 <body>
@@ -25,7 +25,11 @@
       { x: 47, y: 38, type: 'B' },
       { x: 346, y: 10, type: 'B' },
       { x: 23, y: 52, type: 'B' },
-      { x: 346, y: 410, type: 'A' }
+      { x: 346, y: 410, type: 'A' },
+      { x: 70, y: 70, type: 'A' },
+      { x: 80, y: 80, type: 'B' },
+      { x: 90, y: 90, type: 'A' },
+      { x: 100, y: 100, type: 'B' },
     ];
 
     const vis = new d3ml.KNNVisualization(data, options, types, 3);
