@@ -19,18 +19,16 @@ function setup() {
         }
     }
 
-<<<<<<< .mine
-    var data = [];
-    data.push([1, 3]);  
-    data.push([2, 1]);
-    data.push([2, 6]);
-    data.push([5, 5]);
-    data.push([5, 9]);
-    data.push([6, 8]);
-    data.push([7, 2]);
-    data.push([8, 4]);
-    data.push([9, 1]);
-=======
+    // var data = [];
+    // data.push([1, 3]);  
+    // data.push([2, 1]);
+    // data.push([2, 6]);
+    // data.push([5, 5]);
+    // data.push([5, 9]);
+    // data.push([6, 8]);
+    // data.push([7, 2]);
+    // data.push([8, 4]);
+    // data.push([9, 1]);
     // var data = [
     //     [40, 70],
     //     [70, 130],
@@ -39,13 +37,6 @@ function setup() {
     //     [140, 110],
     //     [160, 100]
     // ];
-
-
->>>>>>> .theirs
- 
- 
-   
-
     
     var data = [
         [40, 70],
