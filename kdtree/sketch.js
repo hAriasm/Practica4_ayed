@@ -37,7 +37,7 @@ function setup() {
     //     [140, 110],
     //     [160, 100]
     // ];
-    
+
     var data = [
         [40, 70],
         [70, 130],
@@ -97,7 +97,7 @@ function setup() {
     var bestFuerzaBruta = closest_point_brute_force(data, pointN);
     console.log(" best FuerzaBruta: " + bestFuerzaBruta);
 
-    
+
 
 }
 
@@ -109,13 +109,13 @@ function drawPoint(point, r = 255, g = 255, b = 255) {
     circle(x * width / maxx, height - y * height / maxy, 10); // 200 -y para q se dibuje apropiadamente
     textSize(16);
     text(x + ', ' + y, x * width / maxx + 5, height - y * height / maxy - 5);
- 
+
 
 }
 
-function drawRect(a,b){
-    stroke ( 255 ) ;
-    rectMode ( CENTER );
-    let range = new Rectangle ( a ,b ,50 ,50)
-    rect (range.x , range.y , range.w *2 , range.h *2) ;    
+function drawRect(a, b) {
+    stroke(255);
+    rectMode(CENTER);
+    let range = new rect(a, b, 50, 50)
+    rect(range.x, range.y, range.w * 2, range.h * 2);
 }

@@ -138,6 +138,39 @@ function closest_point(node, point, depth = 0, best = null) {
   return bestPoint;
 }
 
+function closests_points(node, point, depth = 0, best = null) {
+  var axis = depth % k;
+  var bestPoint;
+
+  if (node == null) {
+    return best;
+  }
+
+  if (best == null) {
+    best = node.point;
+  }
+
+  console.log("node.point: " + node.point);
+
+  if (distanceSquared(point, node.point) < distanceSquared(point, best)) {
+    best = node.point;
+  }
+
+
+  if (point[axis] <= node.point[axis]) {
+    bestPoint = closest_point(node.left, point, depth + 1, best);
+    if (Math.abs(point[axis] - node.point[axis]) < distanceSquared(point, bestPoint)) {
+      bestPoint = closest_point(node.right, point, depth + 1, best);
+    }
+  } else {
+    bestPoint = closest_point(node.right, point, depth + 1, best);
+    if (Math.abs(point[axis] - node.point[axis]) < distanceSquared(point, bestPoint)) {
+      bestPoint = closest_point(node.left, point, depth + 1, best);
+    }
+  }
+  return bestPoint;
+}
+
 function distanceSquared(point1, point2) {
   var distance = 0;
 
