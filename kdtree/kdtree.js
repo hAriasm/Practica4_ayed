@@ -8,15 +8,7 @@ class Node {
     this.right = null;
     this.axis = axis;
   }
-}
-class Rectangle {
-  constructor (x, y, w, h) {
-    this.x = x; // center
-    this.y = y;
-    this.w = w; // half width
-    this.h = h; // half height
-  }
-}
+} 
 
 function getHeight(node) {
   let height = -1;

@@ -96,9 +96,9 @@ function setup() {
 
     var bestFuerzaBruta = closest_point_brute_force(data, pointN);
     console.log(" best FuerzaBruta: " + bestFuerzaBruta);
+    rectMode ( CENTER );
 
-    drawRect(mouseX, mouseY);
-
+     rect(mouseX, mouseX, 55, 55);
 }
 
 function drawPoint(point, r = 255, g = 255, b = 255) {
@@ -112,10 +112,4 @@ function drawPoint(point, r = 255, g = 255, b = 255) {
  
 
 }
-
-function drawRect(a,b){
-    stroke ( 255 ) ;
-    rectMode ( CENTER );
-    let range = new Rectangle ( a ,b ,50 ,50)
-    rect (range.x , range.y , range.w *2 , range.h *2) ;    
-}
+ 
