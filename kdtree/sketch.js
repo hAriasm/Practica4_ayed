@@ -4,6 +4,7 @@ var maxy = 200;
 var data = [];
 var pointP = [140 ,90];
 var root;
+
 function setup() {
     var width = 800;
     var height = 600;

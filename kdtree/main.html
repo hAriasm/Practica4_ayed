@@ -1,66 +1,48 @@
 <html>
 
 <head>
-    <title>Kd tree </title>
+    <title>Kd tree - Grupo 2 </title>
     <script src=" p5.min.js "> </script>
-    <script src=" kdtree.js "> </script>
-    <script src=" sketch.js "> </script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-
-
-    <input type="text" id="cantidadNodos" name="cantidadNodos" value="200"/>
-    <input type="button" id="generarKdtree" name="generarKdtree" value="Generar Kdtree" onclick="graficarKdtree();" />
-    
-    <input type="button" id="closetPoint" name="closetPoint" value="closest Point" onclick="graficarclosetPoint();" />
-
-    <input type="text" id="cantidadK" name="cantidadK" value="5"/>
-    <input type="button" value="KNN" onclick="graficarKNN();" />
-    <input type="button" value="Leer Spam" onclick="leerData();" />
-    <input type="button" value="Limpiar Cuadro" onclick="limpiarCuadro();" />
-
-
-
-
+    <script src=" kdtree.js "> </script>
+    <script src=" sketch.js "> </script>
 </head>
 
 <body>
-    <div class="container text-center">
-        <div class="row align-items-start">
-          <div class="col">
-            One of three columns
-          </div>
-          <div class="col">
-            One of three columns
-          </div>
-          <div class="col">
-            One of three columns
-          </div>
+
+    <div class="row justify-content-start container">
+        <div class="col-8">
+            <main></main>
         </div>
-        <div class="row align-items-center">
-          <div class="col">
-            One of three columns
-          </div>
-          <div class="col">
-            One of three columns
-          </div>
-          <div class="col">
-            One of three columns
-          </div>
+        <div class="col-4">
+            <div class="col-6  alert alert-primary">
+                <div class="input-group-prepend">
+                    <input type="text" class="form-control" id="cantidadNodos" name="cantidadNodos" value="200" />
+                    <input type="button" class="btn btn-info" id="generarKdtree" name="generarKdtree"
+                        value="Generar Kdtree" onclick="graficarKdtree();" />
+                    <input type="button" class="btn btn-success" id="closetPoint" name="closetPoint"
+                        value="closest Point" onclick="graficarclosetPoint();" />
+                    <input type="button" class="btn btn-success" id="closetPoint" name="closetPoint"
+                        value="c st Point" onclick="graficarclosetPoint();" />
+                    <input type="button" class="btn btn-success" id="closetPoint" name="closetPoint"
+                        value="clo st Point" onclick="graficarclosetPoint();" />
+                </div>
+            </div>
+            <div class="col-6 alert alert-warning">
+                <div class="input-group-prepend">
+                    <input type="text" class="form-control col-3" id="cantidadK" name="cantidadK" value="5" />
+                    <input type="button" class="btn btn-danger col-3" value="KNN" onclick="graficarKNN();" />
+                    <input type="button" class="btn btn-warning" value="Leer Spam" onclick="leerData();" />
+                    <input type="button" class="btn btn-warning" value="Limpiar Cuadro" onclick="limpiarCuadro();" />
+                </div>
+            </div>
         </div>
-        <div class="row align-items-end">
-          <div class="col">
-            One of three columns
-          </div>
-          <div class="col">
-            One of three columns
-          </div>
-          <div class="col">
-            One of three columns
-          </div>
-        </div>
-      </div>
+    </div>
+
+
 </body>
+
 
 </html>
