@@ -1,7 +1,9 @@
 
 var maxx = 250;
 var maxy = 200;
-
+var data = [];
+var pointP = [140 ,90];
+var root;
 function setup() {
     var width = 800;
     var height = 600;
@@ -99,6 +101,14 @@ function setup() {
     rectMode ( CENTER );
 
      rect(mouseX, mouseX, 55, 55);
+
+     var cantidadK  = 4 ;
+     var knn=findKNN(root,pointP ).nearestNodes;
+     for(let i=0;i<knn.length;i++){
+         fill(222, 15, 15);
+         circle(knn[i].point[0],height-knn[i].point[1],6); //200-y para q se dibuje apropiadamente 
+         console.log("point" +knn[i].point);
+     }
 }
 
 function drawPoint(point, r = 255, g = 255, b = 255) {
@@ -112,4 +122,7 @@ function drawPoint(point, r = 255, g = 255, b = 255) {
  
 
 }
+
+
+ 
  
