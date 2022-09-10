@@ -67,72 +67,110 @@ function distanceSquared(point1, point2) {
 }
 
 function closest_point_brute_force(points, point) {
-var menorDistancia = 99999;
-var tempPoint = null;
-  for(var i = 0 ; i< points.length ; i++){
-    var temp = distance(points[i],point);
-    if(menorDistancia > temp) {
+  var menorDistancia = 99999;
+  var tempPoint = null;
+  for (var i = 0; i < points.length; i++) {
+    var temp = distanceSquared(points[i], point);
+    if (menorDistancia > temp) {
       menorDistancia = temp;
       tempPoint = points[i];
     }
-    }
-  
+  }
+
   console.log("la menor dinstancia de fuerza bruta es: " + menorDistancia);
   return tempPoint;
 }
 
-function naive_closest_point(node, point, depth = 0, best = null, minDistance = Number.MAX_VALUE) {
-    var axis = depth % k;
+function naive_closest_point(node, point, depth = 0, best = null) {
+  var axis = depth % k;
 
-    if (node == null) {
-        return best;
-    }
+  if (node == null) {
+    return best;
+  }
 
-    currentDistance = distance(point, node.point);
-    if(currentDistance < minDistance) {
-        minDistance = currentDistance; 
-        best = node.point;
-    }
-    // console.log("best: " + best);
-    
-    if (point[axis] <= node.point[axis]) {
-        return naive_closest_point(node.left, point, depth + 1, best, minDistance);
-    } else {
-        return naive_closest_point(node.right, point, depth + 1, best, minDistance);
-    }
+  if (best == null) {
+    best = node.point;
+  }
+
+  console.log("node.point: " + node.point);
+
+  if (distanceSquared(point, node.point) < distanceSquared(point, best)) {
+    best = node.point;
+  }
+
+  if (point[axis] <= node.point[axis]) {
+    return naive_closest_point(node.left, point, depth + 1, best);
+  } else {
+    return naive_closest_point(node.right, point, depth + 1, best);
+  }
 }
 
-function distance(a, b) {
-    return Math.sqrt(
-        Math.pow(a[1] - b[1], 2) +
-        Math.pow(a[0] - b[0], 2)
-    );
+function closest_point(node, point, depth = 0, best = null) {
+  var axis = depth % k;
+  var bestPoint;
+
+  if (node == null) {
+    return best;
+  }
+
+  if (best == null) {
+    best = node.point;
+  }
+
+  console.log("node.point: " + node.point);
+
+  if (distanceSquared(point, node.point) < distanceSquared(point, best)) {
+    best = node.point;
+  }
+
+
+  if (point[axis] <= node.point[axis]) {
+    bestPoint = closest_point(node.left, point, depth + 1, best);
+    if (Math.abs(point[axis] - node.point[axis]) < distanceSquared(point, bestPoint)) {
+      bestPoint = closest_point(node.right, point, depth + 1, best);
+    }
+  } else {
+    bestPoint = closest_point(node.right, point, depth + 1, best);
+    if (Math.abs(point[axis] - node.point[axis]) < distanceSquared(point, bestPoint)) {
+      bestPoint = closest_point(node.left, point, depth + 1, best);
+    }
+  }
+  return bestPoint;
+}
+
+function distanceSquared(point1, point2) {
+  var distance = 0;
+
+  for (var i = 0; i < k; i++) {
+    distance += Math.pow((point1[i] - point2[i]), 2);
+  }
+  return Math.sqrt(distance);
 }
 
 function inOrder(node) {
-    if (node != null) {
-        if (node.left != null) {
-            output += "\n  \"" + node.point[0] + ", " + node.point[1] + "\" -> \"" + node.left.point[0] + ", " + node.left.point[1] + "\";";
-            inOrder(node.left);
-        }
-        if (node.right != null) {
-            output += "\n  \"" + node.point[0] + ", " + node.point[1] + "\" -> \"" + node.right.point[0] + ", " + node.right.point[1] + "\";";
-            inOrder(node.right);
-        }
+  if (node != null) {
+    if (node.left != null) {
+      output += "\n  \"" + node.point[0] + ", " + node.point[1] + "\" -> \"" + node.left.point[0] + ", " + node.left.point[1] + "\";";
+      inOrder(node.left);
     }
+    if (node.right != null) {
+      output += "\n  \"" + node.point[0] + ", " + node.point[1] + "\" -> \"" + node.right.point[0] + ", " + node.right.point[1] + "\";";
+      inOrder(node.right);
+    }
+  }
 }
 
 
 function generate_dot(node) {
-    // const fs = require("fs");
+  // const fs = require("fs");
 
-    inOrder(node);
-    output = "digraph G {" + output + "\n}";
+  inOrder(node);
+  output = "digraph G {" + output + "\n}";
 
-    // fs.writeFile("kdtree.dot", output, (err) => {
-    //     if (err) throw err;
-    // });
+  // fs.writeFile("kdtree.dot", output, (err) => {
+  //     if (err) throw err;
+  // });
 
-    console.log(output);
-    // console.log("archivo generado");
+  console.log(output);
+  // console.log("archivo generado");
 }
