@@ -5,6 +5,7 @@ function setup() {
     createCanvas(width, height);
 
     background(0);
+    drawRect(mouseX ,mouseY);
     for (var x = 0; x < width; x += width / scale) {
         for (var y = 0; y < height; y += height / scale) {
             stroke(125, 125, 125);
@@ -15,7 +16,7 @@ function setup() {
     }
 
     var data = [];
-    data.push([1, 3]);
+    data.push([1, 3]);  
     data.push([2, 1]);
     data.push([2, 6]);
     data.push([5, 5]);
@@ -24,6 +25,9 @@ function setup() {
     data.push([7, 2]);
     data.push([8, 4]);
     data.push([9, 1]);
+ 
+ 
+   
 
     for (let i = 0; i < data.length; i++) {
         drawPoint(data[i]);// 200 -y para q se dibuje  ropiadamente
@@ -52,6 +56,8 @@ function setup() {
     var bestFuerzaBruta = closest_point_brute_force(data,pointN);
     console.log(" best FuerzaBruta: " + bestFuerzaBruta);
 
+    
+
 }
 
 function drawPoint(point, r = 255, g = 255, b = 255) {
@@ -62,4 +68,13 @@ function drawPoint(point, r = 255, g = 255, b = 255) {
     circle(x * width / 10, height - y * height / 10, 10); // 200 -y para q se dibuje apropiadamente
     textSize(16);
     text(x + ', ' + y, x * width / 10 + 5, height - y * height / 10 - 5);
+ 
+
+}
+
+function drawRect(a,b){
+    stroke ( 255 ) ;
+    rectMode ( CENTER );
+    let range = new Rectangle ( a ,b ,50 ,50)
+    rect (range.x , range.y , range.w *2 , range.h *2) ;    
 }
