@@ -97,7 +97,7 @@ function setup() {
     var bestFuerzaBruta = closest_point_brute_force(data, pointN);
     console.log(" best FuerzaBruta: " + bestFuerzaBruta);
 
-    
+    drawRect(mouseX, mouseY);
 
 }
 
