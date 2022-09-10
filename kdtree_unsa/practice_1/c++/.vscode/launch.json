@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "/media/paul/DiscoD/ESTUDIOS/MAESTRIA/PRACTICA1/mcs_unsa_algo_data_structure/practice_1/c++",
+      "environment": [],
+      "program": "/media/paul/DiscoD/ESTUDIOS/MAESTRIA/PRACTICA1/mcs_unsa_algo_data_structure/practice_1/c++/build/Debug/outDebug",
+      "internalConsoleOptions": "openOnSessionStart",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "externalConsole": false
+    }
+  ]
+}

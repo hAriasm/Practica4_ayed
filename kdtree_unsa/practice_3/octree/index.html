@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Octree</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				font-family: Monospace;
+				background-color: #000000;
+				margin: 0px;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript" src="js/three.min.js"></script>
+		<script type="text/javascript" src="js/threeoctree.js"></script>
+		<script>
+			initHtml();
+			var camera, 
+				scene, 
+				renderer,
+				octree,
+				geometry, 
+				material, 
+				mesh,
+				meshes = [],
+				meshesSearch = [],
+				//meshCountMax = 1000,
+				//meshCountMax = 	puntosMaximos, // Cantidad maxima de puntos por iteracion
+				//radius = 500, variable principal que permitirá generar los objetos Octree.
+				radius = 500, // radio total en los 3 ejes para la visualizacion
+				radiusMax = radius * 10,
+				radiusMaxHalf = radiusMax * 0.5,// La mitad del radio máximo
+				//radiusSearch = 400,
+				radiusSearch = 400, // radio de busqueda
+				searchMesh,
+				baseR = 255, baseG = 255, baseB = 255, // color del punto en el octree color blanco
+				foundR = 0, foundG = 255, foundB = 0,  // color verde para el buscador 
+				adding = true;  // valida que siempre se agrege un cubo
+			function initHtml(){
+				// info
+				var info = document.createElement( 'div' );
+				info.style.position = 'absolute';
+				info.style.top = '0';
+				info.style.width = '100%';
+				info.style.textAlign = 'center';
+				info.style.padding = '10px';
+				info.style.background = '#FFFFFF';
+				info.innerHTML = '<label for="fname">Maximo de puntos:</label> <input type="text" id="fpoints" name="fpoints"> <button onclick="init();">Iniciar</button> <a href="http://threejs.org" target="_blank">three.js</a> - por <a href="https://github.com/cesarcharallaolazo/mcs_unsa_algo_data_structure/tree/master/practice_3/octree" target="_blank">Grupo 7</a>';
+				document.body.appendChild( info );
+			}
+			function init() {
+				var puntosMaximos= document.getElementById("fpoints").value;
+				meshCountMax = 	parseInt(puntosMaximos);// Cantidad maxima de puntos por iteracion	
+				// standard three scene, camera, renderer
+				scene = new THREE.Scene();
+				//20 es el tamaño de los cuadrantes a menos numero mas grande se ve
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, radius * 100 );
+				scene.add(camera);
+				renderer = new THREE.WebGLRenderer();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild( renderer.domElement );
+				// create octree				
+				octree = new THREE.Octree( {
+					// when undeferred = true, objects are inserted immediately
+					// instead of being deferred until next octree.update() call
+					// this may decrease performance as it forces a matrix update
+					//undeferred: false,
+					undeferred: false,
+					// set the max depth of tree
+					//depthMax: Infinity,
+					depthMax: Infinity,
+					// max number of objects before nodes split or merge
+					//objectsThreshold: 8,
+					objectsThreshold: 4,
+					// percent between 0 and 1 that nodes will overlap each other
+					// helps insert objects that lie over more than one node
+					//overlapPct: 0.15, 
+					overlapPct: 0.15, // grosor de la lineas rojas de los cuadrantes
+					// pass the scene to visualize the octree
+					scene: scene
+				} );
+				// create object to show search radius and add to scene
+				searchMesh = new THREE.Mesh(
+					new THREE.SphereGeometry(radiusSearch), 
+					// Crea un radio de busqueda
+					new THREE.MeshBasicMaterial( { color: 0x98B4ED, transparent: true, opacity: 0.4 } )
+				);
+				scene.add(searchMesh);
+				//animate();
+				asyncCall();
+			}
+			function animate() {
+				// note: three.js includes requestAnimationFrame shim
+				//requestAnimationFrame( animate );
+				// modify octree structure by adding/removing objects				
+				//modifyOctree();
+				// search octree at random location
+				//searchOctree();
+				// render results
+				//render(); // movimiento de la camara
+				// update octree to add deferred objects
+				//octree.update();
+				return new Promise(resolve => {
+					setTimeout(() => {
+						requestAnimationFrame( animate );
+						// modify octree structure by adding/removing objects				
+						modifyOctree();
+						// search octree at random location
+						//searchOctree();
+						// render results
+						render(); // movimiento de la camara
+						// update octree to add deferred objects
+						octree.update();
+					}, 300);
+				});
+
+			}		
+			function modifyOctree() {
+				// si estamos agregando objetos al octree
+				if ( adding === true ) {
+					// creamos un nuevo objeto cubo y punto
+					geometry = new THREE.CubeGeometry( 50, 50, 50 );
+					material = new THREE.MeshBasicMaterial();
+					material.color.setRGB( baseR, baseG, baseB ); // color blanco al punto
+					mesh = new THREE.Mesh( geometry, material );
+					// Dar al nuevo objeto una posicion aleatoria en el radio
+					mesh.position.set(
+						Math.random() * radiusMax - radiusMaxHalf,
+						Math.random() * radiusMax - radiusMaxHalf,
+						Math.random() * radiusMax - radiusMaxHalf
+					);
+					// se agrega aleatoriamente un objeto al octree y a la escena
+					octree.add(mesh);
+					scene.add(mesh);
+					// store object for later
+					meshes.push( mesh );
+					// si llegamos al maximo dejamos de insertar.
+					console.log("meshCountMax: "+ meshCountMax);
+					if ( meshes.length === meshCountMax ) {
+						adding = false;
+					}
+				}
+				// else remove objects from octree
+				/*else {
+					// get object
+					mesh = meshes.shift();
+					// remove from scene and octree
+					scene.remove( mesh );
+					octree.remove( mesh );
+					// si no hay mas objetos nuevamente ponemos en true el agregando (adding)
+					if ( meshes.length === 0 ) {
+						adding = true;
+					}
+				}*/
+				/*
+				// octree details to console
+				console.log( ' OCTREE: ', octree );
+				console.log( ' ... depth ', octree.depth, ' vs depth end?', octree.depth_end() );
+				console.log( ' ... num nodes: ', octree.node_count_end() );
+				console.log( ' ... total objects: ', octree.object_count_end(), ' vs tree objects length: ', octree.objects.length );
+				// print full octree structure to console
+				octree.to_console();
+				*/
+			}
+			function searchOctree() {
+				var i, il;
+				// revert previous search objects to base color
+				console.log(meshesSearch.length);
+				for ( i = 0, il = meshesSearch.length; i < il; i++ ) {
+					//console.log(meshesSearch[i]);
+					meshesSearch[i].object.material.color.setRGB( baseR, baseG, baseB );
+				}
+				// new search position
+				searchMesh.position.set(
+					Math.random() * radiusMax - radiusMaxHalf,
+					Math.random() * radiusMax - radiusMaxHalf,
+					Math.random() * radiusMax - radiusMaxHalf
+				);
+				// record start time
+				var timeStart = Date.now();
+				// busca el octree desde la posición de la malla de búsqueda con radio de búsqueda
+				// tercer parámetro opcional: booleano, si debe ordenar los resultados por objeto cuando se usan caras en octree
+				// cuarto parámetro opcional: vector3, dirección de búsqueda cuando se usa un rayo (se supone que el radio es la distancia / lejos del rayo)
+				var rayCaster = new THREE.Raycaster(new THREE.Vector3().copy(searchMesh.position), 
+													new THREE.Vector3(Math.random()*2-1,Math.random()*2-1,Math.random()*2-1).normalize());
+				meshesSearch = octree.search( rayCaster.ray.origin, radiusSearch, true, rayCaster.ray.direction );
+				var intersections = rayCaster.intersectOctreeObjects( meshesSearch );
+				// record end time
+				var timeEnd = Date.now();
+				// set color of all meshes found in search
+				for ( i = 0, il = meshesSearch.length; i < il; i++ ) {
+					meshesSearch[i].object.material.color.setRGB( foundR, foundG, foundB );
+				}
+				/*
+				// results to console
+				console.log( 'OCTREE: ', octree );
+				console.log( '... searched ', meshes.length, ' and found ', meshesSearch.length, ' with intersections ', intersections.length, ' and took ', ( timeEnd - timeStart ), ' ms ' );
+				*/
+			}
+			function render() {
+				var timer = - Date.now() / 50000;
+				camera.position.x = Math.cos( timer ) * 10000;
+				camera.position.z = Math.sin( timer ) * 10000;
+				camera.lookAt( scene.position );
+				renderer.render( scene, camera );
+				// renderiza en base a la escena y la camara
+			}
+			async function asyncCall() {
+				console.log('calling');
+				const result = await animate();
+				console.log(result);
+				// expected output: "resolved"
+			}
+			
+		</script>
+	</body>
+</html>
