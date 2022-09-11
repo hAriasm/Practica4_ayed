@@ -9,6 +9,7 @@ function setup() {
   var height = 600;
   var scalex = 10;
   var scaley = 5;
+  createCanvas();
   createCanvas(width, height);
 
   background(0);
@@ -20,29 +21,6 @@ function setup() {
       line(0, y, width, y);
     }
   }
-
-  // var data = [];
-  // data.push([1, 3]);
-  // data.push([2, 1]);
-  // data.push([2, 6]);
-  // data.push([5, 5]);
-  // data.push([5, 9]);
-  // data.push([6, 8]);
-  // data.push([7, 2]);
-  // data.push([8, 4]);
-  // data.push([9, 1]);
-
-  //-------------------------------------
-  // DATOS DE PREGUNTA 5
-
-  // var data = [
-  //     [40, 70],
-  //     [70, 130],
-  //     [90, 40],
-  //     [110, 100],
-  //     [140, 110],
-  //     [160, 100]
-  // ];
 
   //-------------------------------------
   // DATOS DE PREGUNTA 6
@@ -57,36 +35,17 @@ function setup() {
   //      [150, 30]
   //];
 
-  // data.push([1, 3]);
-  // data.push([2, 1]);
-  // data.push([2, 6]);
-  // data.push([5, 5]);
-  // data.push([5, 9]);
-  // data.push([6, 8]);
-  // data.push([7, 2]);
-  // data.push([8, 4]);
-  // data.push([9, 1]);
-
-  // data.push([40, 70]);
-  // data.push([70, 130]);
-  // data.push([90, 40]);
-  // data.push([100, 100]);
-  // data.push([140, 110]);
-  // data.push([150, 30]);
-  // data.push([175, 100]);
-
   // for (let i = 0; i < data.length; i++) {
   //     drawPoint(data[i]);
   // }
 
-  //------------------------------------------------------------------------------
-  // 12 DATOS ALEATORIOS
+
 
   if (mouseIsPressed) {
     console.log("paso por aqui");
     pointInsert(mouseX, mouseY);
   }
-
+  
   var data = [];
   for (let i = 0; i < 12; i++) {
     var x = Math.floor(Math.random() * maxx);
@@ -111,18 +70,103 @@ function setup() {
   pointN = [140, 90];
   drawPoint(pointN, 0, 255, 0);
 
-  rectMode(CENTER);
-
-  rect(mouseX, mouseX, 55, 55);
-
-  var cantidadK = 4;
-  var knn = findKNN(root, pointP).nearestNodes;
-  for (let i = 0; i < knn.length; i++) {
-    fill(222, 15, 15);
-    circle(knn[i].point[0], height - knn[i].point[1], 6); //200-y para q se dibuje apropiadamente
-    console.log("point: " + knn[i].point);
   }
-}
+
+function setup2() {
+    root =null;
+    data = null; 
+    var width = 800;
+    var height = 600;
+    var scalex = 10;
+    var scaley = 5;
+    createCanvas(width, height);
+  
+    background(0);
+    for (var x = 0; x < width; x += width / scalex) {
+      for (var y = 0; y < height; y += height / scaley) {
+        stroke(125, 125, 125);
+        strokeWeight(1);
+        line(x, 0, x, height);
+        line(0, y, width, y);
+      }
+    }
+    //-------------------------------------
+    // DATOS DE PREGUNTA 5
+  
+    var data = [
+    [40, 70],
+    [70, 130],
+    [90, 40],
+    [110, 100],
+    [140, 110],
+    [160, 100]
+    ];
+  
+    
+    for (let i = 0; i < data.length; i++) {
+     drawPoint(data[i]);
+    }
+      
+    if (mouseIsPressed) {
+      console.log("paso por aqui");
+      pointInsert(mouseX, mouseY);
+    }
+        
+    root = build_kdtree(data);
+    generate_dot(root);
+  
+    pointN = [140, 90];
+    drawPoint(pointN, 0, 255, 0);
+  }
+
+  function setup3() {
+    root =null;
+    data = null; 
+    var width = 800;
+    var height = 600;
+    var scalex = 10;
+    var scaley = 5;
+    createCanvas(width, height);
+  
+    background(0);
+    for (var x = 0; x < width; x += width / scalex) {
+      for (var y = 0; y < height; y += height / scaley) {
+        stroke(125, 125, 125);
+        strokeWeight(1);
+        line(x, 0, x, height);
+        line(0, y, width, y);
+      }
+    }
+   
+    //-------------------------------------
+    // DATOS DE PREGUNTA 6
+  
+      var data = [
+          [40, 70],
+         [70, 130],
+          [90, 40],
+          [110, 100],
+          [140, 110],
+        [160, 100],
+        [150, 30]
+    ];
+  
+   
+    for (let i = 0; i < data.length; i++) {
+     drawPoint(data[i]);
+    }
+      
+    if (mouseIsPressed) {
+      console.log("paso por aqui");
+      pointInsert(mouseX, mouseY);
+    }
+        
+    root = build_kdtree(data);
+    generate_dot(root);
+  
+    pointN = [140, 90];
+    drawPoint(pointN, 0, 255, 0);
+  }
 
 function pointInsert(x, y) {
   console.log("mouseX " + pmouseX);
