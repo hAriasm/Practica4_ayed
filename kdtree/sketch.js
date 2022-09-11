@@ -185,8 +185,6 @@ function setup2() {
     root = build_kdtree(data);
     generate_dot(root);
 
-    let pointN = [40, 50];
-    drawPoint(pointN, 0, 255, 0);
 }
 function setup3() {
     root = null;
@@ -375,10 +373,18 @@ function unitTest() {
     console.log("closest point: " + best);
 
     console.log("k-nearest neighbors");
-    var knn = knn_points(root, pointN, 4).nearestNeighbors;
+    var k = 5;
+    var knn = knn_points(root, pointN, k).nearestNeighbors;
     for (let i = 0; i < knn.length; i++) {
-        console.log(knn[i].point);
+        console.log("p: " + knn[i].point);
     }
+    
+    console.log("k-nearest neighbors u");
+    var knn = findKNN(root, pointN, k).nearestNodes;
+    for (let i = 0; i < knn.length; i++) {
+        console.log("u: " + knn[i].point);
+    }
+    
 }
 
 
