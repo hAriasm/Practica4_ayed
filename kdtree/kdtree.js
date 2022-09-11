@@ -176,13 +176,13 @@ function closest_point(node, point, depth = 0, best = null) {
 }
 
 let nearest;
-function knn_points(node, point, k) {
+function findKnn(node, point, k) {
   nearest = new BPQ(k);
 
-  return closests_points(node, point);
+  return nearestNeighbors(node, point);
 }
 
-function closests_points(node, point, depth = 0) {
+function nearestNeighbors(node, point, depth = 0) {
   var axis = depth % k;
 
   if (node == null) {
@@ -192,14 +192,14 @@ function closests_points(node, point, depth = 0) {
   nearest.enqueue(node, distanceSquared(point, node.point));
 
   if (point[axis] <= node.point[axis]) {
-    closests_points(node.left, point, depth + 1);
+    nearestNeighbors(node.left, point, depth + 1);
     if (!nearest.isFull() || Math.abs(point[axis] - node.point[axis]) < nearest.maxPriority()) {
-      closests_points(node.right, point, depth + 1);
+      nearestNeighbors(node.right, point, depth + 1);
     }
   } else {
-    closests_points(node.right, point, depth + 1);
+    nearestNeighbors(node.right, point, depth + 1);
     if (!nearest.isFull() || Math.abs(point[axis] - node.point[axis]) < nearest.maxPriority()) {
-      closests_points(node.left, point, depth + 1);
+      nearestNeighbors(node.left, point, depth + 1);
     }
   }
 
@@ -241,42 +241,4 @@ function generate_dot(node) {
 
   console.log(output);
   // console.log("archivo generado");
-}
-
-
-var queue;
-function findKNN(node, point, KN = null) {
-  // console.log("node: " + node  + " point: " + point + " KN: " + KN);
-  KN = KN || 1;
-  console.log("kn: " + KN);
-  queue = new BPQ(KN);
-  scannedNodes = [];
-  console.log(node);
-  return KNN(node, point);
-}
-function KNN(node, point) {
-  if (node === null) return;
-  scannedNodes.push(node);
-  // Agregar punto actual a BPQ
-  console.log("node: " + node + " point: " + point);
-
-  queue.enqueue(node, distanceSquared(node.point, point));
-  // Busca de forma recursiva la mitad del árbol que contiene el punto de prueba
-  if (point[node.axis] < node.point[node.axis]) {//comprobar la izquierda
-    KNN(node.left, point);
-    var otherNode = node.right;
-  } else {// Comprobar la derecha
-    KNN(node.right, point);
-    var otherNode = node.left;
-  }
-  //Si la hiperesfera candidata cruza este plano de división, mira el otro lado del plano examinando el otro subárbol
-  var delta = Math.abs(node.point[node.axis] - point[node.axis]);
-  if (!queue.isFull() || delta < queue.maxPriority()) {
-    KNN(otherNode, point);
-  }
-  return {
-    nearestNodes: queue.values,
-    scannedNodes: scannedNodes,
-    maxDistance: queue.maxPriority()
-  };
 }
