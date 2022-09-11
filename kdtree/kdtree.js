@@ -231,7 +231,7 @@ function inOrder(node) {
 
 function generate_dot(node) {
   // const fs = require("fs");
-
+  output = null; 
   inOrder(node);
   output = "digraph G {" + output + "\n}";
 
