@@ -268,7 +268,7 @@ function drawPoint(point, r = 255, g = 255, b = 255) {
 
 function graficarKNN() {
     var cantidadK = document.getElementById("cantidadK").value;
-    var knn = findKNN(root, pointP, parseInt(cantidadK)).nearestNodes;
+    var knn = findKnn(root, pointP, parseInt(cantidadK)).nearestNeighbors;
 
     // El siguiente codigo es para limpiar los datos del grafico, obtenidos del KNN (Puntos azules)
     // var data = [
@@ -374,15 +374,9 @@ function unitTest() {
 
     console.log("k-nearest neighbors");
     var k = 5;
-    var knn = knn_points(root, pointN, k).nearestNeighbors;
+    var knn = findKnn(root, pointN, k).nearestNeighbors;
     for (let i = 0; i < knn.length; i++) {
         console.log("p: " + knn[i].point);
-    }
-    
-    console.log("k-nearest neighbors u");
-    var knn = findKNN(root, pointN, k).nearestNodes;
-    for (let i = 0; i < knn.length; i++) {
-        console.log("u: " + knn[i].point);
     }
     
 }
