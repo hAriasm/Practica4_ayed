@@ -89,7 +89,7 @@ function setup() {
     //     pointInsert(mouseX, mouseY);
     //   }
 
-    var data = [];
+      data = [];
     for (let i = 0; i < 12; i++) {
         var x = Math.floor(Math.random() * maxx);
         var y = Math.floor(Math.random() * maxy);
@@ -163,7 +163,7 @@ function setup2() {
     //-------------------------------------
     // DATOS DE PREGUNTA 5
 
-    var data = [
+      data = [
         [40, 70],
         [70, 130],
         [90, 40],
@@ -208,7 +208,7 @@ function setup3() {
     //-------------------------------------
     // DATOS DE PREGUNTA 6
 
-    var data = [
+      data = [
         [40, 70],
         [70, 130],
         [90, 40],
@@ -242,8 +242,9 @@ function pointInsert(x, y) {
 }
 
 function graficar_closest_point_brute_force() {
-    var bestFuerzaBruta = closest_point_brute_force(data, pointN);
-    console.log(" best FuerzaBruta: " + bestFuerzaBruta);
+  console.log("data: " + data + "pointN: " + pointP);
+  var bestFuerzaBruta = closest_point_brute_force(data, pointN);
+  console.log(" best FuerzaBruta: " + bestFuerzaBruta);
 }
 
 function graficar_closet_Point() {
@@ -341,7 +342,7 @@ function limpiarCuadro() {
 
 function unitTest() {
 
-    var data = [
+      data = [
         [10, 75],
         [20, 50],
         [25, 10],
