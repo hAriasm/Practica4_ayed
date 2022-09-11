@@ -13,37 +13,49 @@
 <body>
 
     <div class="row justify-content-start  ">
-        <div class="row-12">
-            <div class="col-6  alert alert-primary">
-                <div class="input-group-prepend">
-                    <input type="text" class="col-3" id="cantidadNodos" style="margin-top: 5px"  name="cantidadNodos" value="200" />
-                    <input type="button" class="btn btn-info btn-sm" style="margin-top: 5px"  id="generarKdtree" name="generarKdtree"
-                        value="KDTREE" onclick="setup();" />
-                    
-                    <input type="button" class="btn btn-info btn-sm" style="margin-top: 5px"  id="generarKdtree" name="generarKdtree"
-                     value="Data 1 (Pregunta 5)" onclick="setup2();" />
-                    <input type="button" class="btn btn-info btn-sm" style="margin-top: 5px"  id="generarKdtree" name="generarKdtree"
-                    value="Data 2 (Pregunta 6)" onclick="setup3();" />
+        <div class="row">
+            <div class="col-4  alert alert-primary">
+                <div class="row">
+                    <input type="text" class="col-3" id="cantidadNodos" style="margin-top: 5px" name="cantidadNodos"
+                        value="200" />
+                    <input type="button" class="btn btn-info col-3 btn-sm" style="margin-top: 5px" id="generarKdtree"
+                        name="generarKdtree" value="KDTREE" onclick="setup();" />
+                </div>
+                <div class="row">
+                    <input type="button" class="btn btn-info col-6 btn-sm" style="margin-top: 5px" id="generarKdtree"
+                        name="generarKdtree" value="Data 1 (Pregunta 5)" onclick="setup2();" />
+                    <input type="button" class="btn btn-success col-6 btn-sm" style="margin-top: 5px" id="generarKdtree"
+                        name="generarKdtree" value="Data 2 (Pregunta 6)" onclick="setup3();" />
 
-                    <input type="button" class="btn btn-success btn-sm" style="margin-top: 5px"  id="closetPoint" name="closetPoint"
-                        value="closest_Point_Brute_Force" onclick="graficar_closest_point_brute_force();" />
-                    <input type="button" class="btn btn-success btn-sm"  style="margin-top: 5px" id="closetPoint" name="closetPoint" value="Naive_Closest_Point"
-                        onclick="graficar_naive_cl_pt();" />
-                    <input type="button" class="btn btn-success btn-sm" style="margin-top: 5px"  id="closetPoint" name="closetPoint"
-                        value="Closest_Point" onclick="graficar_closet_Point();" />
+                    <input type="button" class="btn btn-success col-4 btn-sm" style="margin-top: 5px" id="closetPoint"
+                        name="closetPoint" value="closest_Point_Brute_Force"
+                        onclick="graficar_closest_point_brute_force();" />
+                    <input type="button" class="btn btn-warning col-4 btn-sm" style="margin-top: 5px" id="closetPoint"
+                        name="closetPoint" value="Naive_Closest_Point" onclick="graficar_naive_cl_pt();" />
+                    <input type="button" class="btn btn-success col-4 btn-sm" style="margin-top: 5px" id="closetPoint"
+                        name="closetPoint" value="Closest_Point" onclick="graficar_closet_Point();" />
                 </div>
             </div>
-            <div class="col-6 alert alert-warning">
+            <div class="col-4 alert alert-warning">
                 <div class="input-group-prepend">
-                    <input type="text" class=" col-3 " id="cantidadK" style="margin-top: 5px"   name="cantidadK" value="5" />
-                    <input type="button" class="btn btn-danger col-3 btn-sm"  style="margin-top: 5px"  value="KNN" onclick="graficarKNN();" />
-                    <input type="button" class="btn btn-warning btn-sm" style="margin-top: 5px"  value="Range_query_circle" onclick="leerData();" />
-                    <input type="button" class="btn btn-warning btn-sm " style="margin-top:5px " width="100px" value="Range_query_rec" onclick="limpiarCuadro();" />
-                    <input type="button" class="btn btn-warning btn-sm " style="margin-top:5px " width="100px" value="Reiniciar" onclick="limpiarCuadro();" />
+                    <div class="row">
+                        <input type="text" class="col-3 " id="cantidadK" style="margin-top: 5px" name="cantidadK"
+                            value="5" />
+                        <input type="button" class="btn btn-danger col-3 btn-sm" style="margin-top: 5px" value="KNN"
+                            onclick="graficarKNN();" />
+                    </div>
+                    <div class="row">
+                        <input type="button" class="btn btn-success col-4 btn-sm" style="margin-top: 5px"
+                            value="Range_query_circle" onclick="leerData();" />
+                        <input type="button" class="btn btn-info col-4 btn-sm " style="margin-top:5px " width="100px"
+                            value="Range_query_rec" onclick="limpiarCuadro();" />
+                        <input type="button" class="btn btn-danger col-4 btn-sm " style="margin-top:5px " width="100px"
+                            value="Reiniciar" onclick="limpiarCuadro();" />
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row-12">
+        <div class="row">
             <main></main>
         </div>
 
