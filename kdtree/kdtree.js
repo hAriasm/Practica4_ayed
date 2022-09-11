@@ -246,28 +246,38 @@ function generate_dot(node) {
 function range_query_circle(node, center, radio, queue, depth = 0) {
 }
 
-function range_query_rect(node, center, width, height, queue, depth = 0) {
+function range_query_rect(node, range, queue, depth = 0) {
   var axis = depth % k;
+
+  // console.log(range.center[axis] + "-" + range.center[axis+1]);
+  // console.log("w: " + range.scope[axis]);
+  // console.log("h: " + range.scope[axis+1]);
+  // console.log("q: " + queue);
 
   if (node == null) {
     return;
   }
 
-  queue.push(node.point);
-
-  if (point[axis] <= node.point[axis]) {
-    nearestNeighbors(node.left, point, depth + 1);
-    if (!queue.isFull() || Math.abs(point[axis] - node.point[axis]) < queue.maxPriority()) {
-      nearestNeighbors(node.right, point, depth + 1);
-    }
+  console.log("node point axis: " + node.point[axis] + ", axis: " + axis);
+  console.log("lim sup: " + (range.center[axis] + range.scope[axis]));
+  console.log("lim inf: " + (range.center[axis] - range.scope[axis]));
+  if (node.point[axis] <= range.center[axis] + range.scope[axis] &&
+    node.point[axis] >= range.center[axis] - range.scope[axis]) {
+    console.log("inside!: " + node.point);
+    queue.push(node.point);
+    range_query_rect(node.right, range, queue, depth + 1);
+    range_query_rect(node.left, range, queue, depth + 1);
   } else {
-    nearestNeighbors(node.right, point, depth + 1);
-    if (!queue.isFull() || Math.abs(point[axis] - node.point[axis]) < queue.maxPriority()) {
-      nearestNeighbors(node.left, point, depth + 1);
+    if (node.point[axis] <= range.center[axis] - range.scope[axis]) {
+      range_query_rect(node.right, range, queue, depth + 1);
+    }
+  
+    if (node.point[axis] >= range.center[axis] + range.scope[axis]) {
+      range_query_rect(node.left, range, queue, depth + 1);
     }
   }
 
-  return { nearestNeighbors: queue.values };
+  return queue;
 
 }
 
