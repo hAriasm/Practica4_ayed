@@ -5,12 +5,16 @@ var pointP = [140, 90];
 var root;
 
 function setup() {
-    var width = 800;
-    var height = 600;
-    var scalex = 10;
-    var scaley = 5;
-    createCanvas();
-    createCanvas(width, height);
+  var width = 800;
+  var height = 600;
+  var scalex = 10;
+  var scaley = 5;
+
+  root =null;
+  data = null;
+  
+  createCanvas();
+  createCanvas(width, height);
 
     background(0);
     for (var x = 0; x < width; x += width / scalex) {
