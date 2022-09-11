@@ -175,6 +175,7 @@ function pointInsert(x, y) {
 }
 
 function graficar_closest_point_brute_force() {
+  console.log("data: " + data + "pointN: " + pointP);
   var bestFuerzaBruta = closest_point_brute_force(data, pointN);
   console.log(" best FuerzaBruta: " + bestFuerzaBruta);
 }
