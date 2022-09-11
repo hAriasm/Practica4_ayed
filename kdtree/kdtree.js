@@ -41,7 +41,7 @@ class BPQ {
 }
 
 Object.defineProperty(BPQ.prototype, "values", {
-  get: function() { return this.elements.map(function(d) { return d.value; }); }
+  get: function () { return this.elements.map(function (d) { return d.value; }); }
 });
 
 
@@ -153,7 +153,7 @@ function closest_point(node, point, depth = 0, best = null) {
     best = node.point;
   }
 
-  console.log("node.point: " + node.point + ", best: "+ best + ", bestD: " + distanceSquared(point, best));
+  console.log("node.point: " + node.point + ", best: " + best + ", bestD: " + distanceSquared(point, best));
 
   if (distanceSquared(point, node.point) < distanceSquared(point, best)) {
     best = node.point;
@@ -161,17 +161,18 @@ function closest_point(node, point, depth = 0, best = null) {
 
 
   if (point[axis] <= node.point[axis]) {
-    bestPoint = closest_point(node.left, point, depth + 1, best);
-    if (Math.abs(point[axis] - node.point[axis]) < distanceSquared(point, bestPoint)) {
-      bestPoint = closest_point(node.right, point, depth + 1, best);
+    best = closest_point(node.left, point, depth + 1, best);
+    if (Math.abs(point[axis] - node.point[axis]) < distanceSquared(point, best)) {
+      best = closest_point(node.right, point, depth + 1, best);
     }
   } else {
-    bestPoint = closest_point(node.right, point, depth + 1, best);
-    if (Math.abs(point[axis] - node.point[axis]) < distanceSquared(point, bestPoint)) {
-      bestPoint = closest_point(node.left, point, depth + 1, best);
+    best = closest_point(node.right, point, depth + 1, best);
+    if (Math.abs(point[axis] - node.point[axis]) < distanceSquared(point, best)) {
+      best = closest_point(node.left, point, depth + 1, best);
     }
   }
-  return bestPoint;
+
+  return best;
 }
 
 let nearest;
@@ -189,9 +190,7 @@ function closests_points(node, point, depth = 0) {
   }
 
   nearest.enqueue(node, distanceSquared(point, node.point));
-  // console.log(node.point + " / " + distanceSquared(point, node.point));
-  // console.log("queue priority: " + nearest.maxPriority());
-  
+
   if (point[axis] <= node.point[axis]) {
     closests_points(node.left, point, depth + 1);
     if (!nearest.isFull() || Math.abs(point[axis] - node.point[axis]) < nearest.maxPriority()) {
@@ -203,8 +202,6 @@ function closests_points(node, point, depth = 0) {
       closests_points(node.left, point, depth + 1);
     }
   }
-  
-  // console.log("nearest q: " + nearest.values());
 
   return { nearestNeighbors: nearest.values };
 }
