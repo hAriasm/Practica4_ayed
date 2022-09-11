@@ -31,7 +31,7 @@ function setup() {
     }
   }
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 150; i++) {
     var x = Math.floor(Math.random() * maxx);
     var y = Math.floor(Math.random() * maxy);
     data.push([x, y]);
@@ -64,20 +64,20 @@ function draw() {
 
 
 
-  stroke(255);
+  stroke('blue');
   strokeWeight(1);
 
   for (let i = 0; i < data.length; i++) {
     x = data[i][0];
     y = data[i][1];
-    fill(255, 255, 255);
+    fill(255, 255, 255, 200);
     circle(x * width / maxx, height - y * height / maxy, 10);
-    textSize(16);
-    text(
-      x + ", " + y,
-      (x * width) / maxx + 5,
-      height - (y * height) / maxy - 5
-    );
+    // textSize(12);
+    // text(
+    //   x + ", " + y,
+    //   (x * width) / maxx + 5,
+    //   height - (y * height) / maxy - 5
+    // );
   }
 
 }
