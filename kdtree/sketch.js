@@ -82,10 +82,10 @@ function setup() {
   //------------------------------------------------------------------------------
   // 12 DATOS ALEATORIOS
 
-  if (mouseIsPressed) {
-    console.log("paso por aqui");
-    pointInsert(mouseX, mouseY);
-  }
+  //   if (mouseIsPressed) {
+  //     console.log("paso por aqui");
+  //     pointInsert(mouseX, mouseY);
+  //   }
 
   var data = [];
   for (let i = 0; i < 12; i++) {
@@ -103,17 +103,31 @@ function setup() {
     );
   }
   //-----------------------------------------------------------------------------
+  if (mouseIsPressed) {
+    var x = Math.floor(mouseX );
+    var y = Math.floor(mouseY );
+    data.push([x, y]);
 
+    fill(0, 0, 255);
+    circle((x * width) / maxx, height - (y * height) / maxy, 10); // 200 -y para q se dibuje apropiadamente
+    textSize(16);
+    text(
+      x + ", " + y,
+      (x * width) / maxx + 5,
+      height - (y * height) / maxy - 5
+    );
+  }
+  console.log("data" + data);
   root = build_kdtree(data);
   generate_dot(root);
 
   // pointN = [Math.floor(Math.random() * maxx), Math.floor(Math.random() * maxy)];
   pointN = [140, 90];
   drawPoint(pointN, 0, 255, 0);
-
+  // drawPoint((mouseX+200, mouseY+200),255,0,0)
   rectMode(CENTER);
-
-  rect(mouseX, mouseX, 55, 55);
+  // rect(mouseX, mouseX, 55, 55);
+  //drawPoint((mouseX+200, mouseY+200));
 
   var cantidadK = 4;
   var knn = findKNN(root, pointP).nearestNodes;
@@ -125,7 +139,9 @@ function setup() {
 }
 
 function pointInsert(x, y) {
-  console.log("mouseX " + pmouseX);
+  console.log("mouseX " + x);
+  fill(222, 100, 15);
+  drawPoint((x, y));
 }
 
 function graficar_closest_point_brute_force() {
