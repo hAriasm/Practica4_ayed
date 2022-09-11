@@ -175,9 +175,9 @@ function closest_point(node, point, depth = 0, best = null) {
   return best;
 }
 
-let nearest;
+let queue;
 function findKnn(node, point, k) {
-  nearest = new BPQ(k);
+  queue = new BPQ(k);
 
   return nearestNeighbors(node, point);
 }
@@ -189,21 +189,21 @@ function nearestNeighbors(node, point, depth = 0) {
     return;
   }
 
-  nearest.enqueue(node, distanceSquared(point, node.point));
+  queue.enqueue(node, distanceSquared(point, node.point));
 
   if (point[axis] <= node.point[axis]) {
     nearestNeighbors(node.left, point, depth + 1);
-    if (!nearest.isFull() || Math.abs(point[axis] - node.point[axis]) < nearest.maxPriority()) {
+    if (!queue.isFull() || Math.abs(point[axis] - node.point[axis]) < queue.maxPriority()) {
       nearestNeighbors(node.right, point, depth + 1);
     }
   } else {
     nearestNeighbors(node.right, point, depth + 1);
-    if (!nearest.isFull() || Math.abs(point[axis] - node.point[axis]) < nearest.maxPriority()) {
+    if (!queue.isFull() || Math.abs(point[axis] - node.point[axis]) < queue.maxPriority()) {
       nearestNeighbors(node.left, point, depth + 1);
     }
   }
 
-  return { nearestNeighbors: nearest.values };
+  return { nearestNeighbors: queue.values };
 }
 
 function distanceSquared(point1, point2) {
@@ -231,7 +231,7 @@ function inOrder(node) {
 
 function generate_dot(node) {
   // const fs = require("fs");
-  output = null; 
+  output = null;
   inOrder(node);
   output = "digraph G {" + output + "\n}";
 
@@ -242,3 +242,32 @@ function generate_dot(node) {
   console.log(output);
   // console.log("archivo generado");
 }
+
+function range_query_circle(node, center, radio, queue, depth = 0) {
+}
+
+function range_query_rect(node, center, width, height, queue, depth = 0) {
+  var axis = depth % k;
+
+  if (node == null) {
+    return;
+  }
+
+  queue.push(node.point);
+
+  if (point[axis] <= node.point[axis]) {
+    nearestNeighbors(node.left, point, depth + 1);
+    if (!queue.isFull() || Math.abs(point[axis] - node.point[axis]) < queue.maxPriority()) {
+      nearestNeighbors(node.right, point, depth + 1);
+    }
+  } else {
+    nearestNeighbors(node.right, point, depth + 1);
+    if (!queue.isFull() || Math.abs(point[axis] - node.point[axis]) < queue.maxPriority()) {
+      nearestNeighbors(node.left, point, depth + 1);
+    }
+  }
+
+  return { nearestNeighbors: queue.values };
+
+}
+
