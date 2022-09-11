@@ -167,6 +167,7 @@ function setup() {
     rectMode(CENTER);
     let range = new Rectangle(mouseX, mouseY, 100, 100);
     rect(range.x, range.y, range.w * 2, range.h * 2);
+    
      
   }
   
