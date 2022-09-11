@@ -154,7 +154,8 @@ function draw() {
 
     pointP = [obtenerEjex(), obtenerEjey()];
     // console.log("PonitP drawaaa: " + pointP);
-    mouseIsPressed = false;
+    mouseButton = LEFT;
+  
   }
 }
 
@@ -174,6 +175,8 @@ function graficar_closest_point_brute_force() {
   console.log("pointP fuerza bruta: " + pointP);
   var bestFuerzaBruta = closest_point_brute_force(data, pointP);
   console.log("punto de FuerzaBruta: (" + bestFuerzaBruta + ")");
+     drawPoint([bestFuerzaBruta[0],bestFuerzaBruta[1]],0,0,255);
+   
 }
 
 function graficar_closet_Point() {
