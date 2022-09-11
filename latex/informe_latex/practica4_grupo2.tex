@@ -1,4 +1,3 @@
-
 %package list
 \documentclass{article}
 \usepackage[top=3cm, bottom=3cm, outer=3cm, inner=3cm]{geometry}
@@ -143,8 +142,8 @@ Considere los siguientes puntos en un plano 2-D:
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/kdtree_01.png}
-	\caption{Nodos en KD-TREE}
+	\includegraphics[width=0.8\textwidth]{img/kdtree_1.png}
+	\caption{Nodos en KDTREE}
 	\label{fig:kdtree_01}
 \end{figure}
 
@@ -164,32 +163,135 @@ Los 7 puntos se trazarán en el plano X-Y de la siguiente manera:
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/kdtree_02.png}
+	\includegraphics[width=0.8\textwidth]{img/kdtree_2.png}
 	\caption{División del espacio en KD-TREE}
 	\label{fig:kdtree_02}
 \end{figure}
 
 \subsection{KNN}
-\subsubsection*{Definición}
+\subsubsection{Definición}
 \paragraph{}
-El algoritmo de k-vecinos más cercanos, también conocido como KNN o k-NN, es un clasificador de aprendizaje supervisado no paramétrico, que utiliza la proximidad para hacer clasificaciones o predicciones sobre la agrupación de un punto de datos individual. Si bien se puede usar para problemas de regresión o clasificación, generalmente se usa como un algoritmo de clasificación, partiendo de la suposición de que se pueden encontrar puntos similares cerca uno del otro.
+K-Nearest Neighbors es uno de los algoritmos de clasificación más básicos pero esenciales en Machine Learning. Pertenece al dominio de aprendizaje supervisado y encuentra una intensa aplicación en el reconocimiento de patrones, minería de datos y detección de intrusos.
+Es ampliamente disponible en escenarios de la vida real ya que no es paramétrico, lo que significa que no hace suposiciones subyacentes sobre la distribución de datos (a diferencia de otros algoritmos como GMM, que asume una distribución gaussiana de los datos dados) .
+Nos dan unos datos previos (también llamados datos de entrenamiento), que clasifican las coordenadas en grupos identificados por un atributo.
+Como ejemplo, considere la siguiente tabla de puntos de datos que contienen dos características:
 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/knn_01.png}
+	\caption{División del espacio en KD-TREE}
+	\label{fig:knn_01}
+\end{figure}
+
+Ahora, dado otro conjunto de puntos de datos (también llamados datos de prueba), asigne estos puntos a un grupo analizando el conjunto de entrenamiento. Tenga en cuenta que los puntos no clasificados están marcados como 'Blanco'.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/knn_02.png}
+	\caption{División del espacio en KD-TREE}
+	\label{fig:knn_02}
+\end{figure}
+
+\subsubsection{Intuición}
+Si trazamos estos puntos en un gráfico, podemos ubicar algunos grupos o grupos. Ahora, dado un punto sin clasificar, podemos asignarlo a un grupo observando a qué grupo pertenecen sus vecinos más cercanos. Esto significa que un punto cercano a un grupo de puntos clasificados como "Rojo" tiene una mayor probabilidad de ser clasificado como "Rojo".
+Intuitivamente, podemos ver que el primer punto (2.5, 7) debe clasificarse como 'Verde' y el segundo punto (5.5, 4.5) debe clasificarse como 'Rojo'.
+
+\subsubsection{Algoritmo}
+Sea m el número de muestras de datos de entrenamiento. Sea p un punto desconocido.
+
+\begin{enumerate}
+	\item Almacene las muestras de entrenamiento en una matriz de puntos de datos arr[]. Esto significa que cada elemento de esta matriz representa una tupla (x, y).
+	\item Haz el conjunto S de las K distancias más pequeñas obtenidas. Cada una de estas distancias corresponde a un punto de datos ya clasificado.
+	\item Devuelve la etiqueta mayoritaria entre S.
+\end{enumerate}
+
+\paragraph{}
+K se puede mantener como un número impar para que podamos calcular una clara mayoría en el caso de que solo sean posibles dos grupos (por ejemplo, rojo/azul). Con el aumento de K, obtenemos límites más suaves y definidos a través de diferentes clasificaciones. Además, la precisión del clasificador anterior aumenta a medida que aumentamos la cantidad de puntos de datos en el conjunto de entrenamiento.
 
 \section{Ejercicios}
+
 \subsection{Ejercicio N° 1}
+El la imagen \ref{fig:ejercicio_01} se presenta la creación del archivo html.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/ejercicio_01.png}
+	\caption{Archivo html}
+	\label{fig:ejercicio_01}
+\end{figure}
+
 \subsection{Ejercicio N° 2}
 \subsection{Ejercicio N° 3}
 \subsection{Ejercicio N° 4}
 \subsection{Ejercicio N° 5}
+\begin{figure}[h!]
+El la imagen \ref{fig:ejercicio_05_1} se muestra el resultado de la implementación de la función closest_point_brute_force y en la imagen \ref{fig:ejercicio_05_2} se muestra el resultado de la implementacion de la función naive_closest_point.
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/ejercicio_05_1.png}
+	\caption{Función closest_point_brute_force}
+	\label{fig:ejercicio_05_1}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/ejercicio_05_2.png}
+	\caption{Función naive_closest_point}
+	\label{fig:ejercicio_05_2}
+\end{figure}
+
 \subsection{Ejercicio N° 6}
+El la imagen \ref{fig:ejercicio_06_1} se muestra el resultado de la implementación de la función closest_point_brute_force y en la imagen \ref{fig:ejercicio_06_2} se muestra el resultado de la implementacion de la función naive_closest_point.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/ejercicio_06_1.png}
+	\caption{Función closest_point_brute_force}
+	\label{fig:ejercicio_06_1}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/ejercicio_06_2.png}
+	\caption{Función naive_closest_point}
+	\label{fig:ejercicio_06_2}
+\end{figure}
+
 \subsection{Ejercicio N° 7}
+El la imagen \ref{fig:ejercicio_07} se muestra el resultado de la implementación de la función closest_point.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/ejercicio_07.png}
+	\caption{Función closest_point}
+	\label{fig:ejercicio_07}
+\end{figure}
+
+
 \subsection{Ejercicio N° 8}
+El la imagen \ref{fig:ejercicio_08} se muestra el resultado de la implementación de la función KNN, que retorna los k puntos mas cercanos a un punto.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/ejercicio_08.png}
+	\caption{Función KNN, que retorna k puntos mas cercanos}
+	\label{fig:ejercicio_08}
+\end{figure}
+
 \subsection{Ejercicio N° 9}
+El la imagen \ref{fig:ejercicio_09} se muestra el resultado de la implementación de la función range_query_circle de KD-Tree
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/ejercicio_09.png}
+	\caption{Función range_query_circle de KD-Tree}
+	\label{fig:ejercicio_09}
+\end{figure}
+
 \subsection{Ejercicio N° 10}
-\vspace{5mm}
+El la imagen \ref{fig:ejercicio_10} se muestra el resultado de la implementación de la función range_query_rec de KD-Tree
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/ejercicio_10.png}
+	\caption{Función range_query_rec de KD-Tree}
+	\label{fig:ejercicio_10}
+\end{figure}
 
 \clearpage
-
 \section{Conclusiones}
 \begin{itemize}
 	\item El quadtree se codifican en un árbol de cuatro hijos no balanceado, y el  octree se codifica en un árbol octal no balanceado.
@@ -197,24 +299,15 @@ El algoritmo de k-vecinos más cercanos, también conocido como KNN o k-NN, es u
 	\item Las estructuras octree son usadas mayormente para partir un espacio tridimensional, dividiéndolo recursivamente en ocho octantes, siendo análogas tridimensionales de los quadtree bidimensionales.
 \end{itemize}
 
-\clearpage
 \section{Referencias}
 \begin{enumerate}
-	\item Tobler, W., & Chen, Z. T. (1986). A quadtree for global information storage. Geographical Analysis, 18(4), 360-371.
-
-	\item Samet, H. (1984). The quadtree and related hierarchical data structures. ACM Computing Surveys (CSUR), 16(2), 187-260.
-
-	\item Rojas Delgado, J. (2015). Estructura de datos espacial jerárquica para la indexación de agrupaciones de objetos geométricos (Bachelor's thesis, Universidad de las Ciencias Informáticas. Facultad 6).
-
-	\item Castillo Oliva, A. D. (2018). Visualización de grandes volúmenes de datos empleando Octree (Bachelor's thesis, Universidad de las Ciencias Informáticas. Centro Vertex, Entornos Interactivos 3D. Facultad 4).
-
-	\item Rivero, J. P. S., de la Hoz, Á. P., & Medina, M. Á. P. GENERACIÓN DE MALLAS APLICACIONES A LA INGENIERÍA.
-
-	\item Brunet Crosa, P., Santisteve i Puyuelo, F., Vilanova, A., Chiarabini, L., Patow, G. A., Staffetti, E., & Surinyac, J. (1999). Estructuras geométricas jerárquicas para la modelización de escenas 3D.
-
+	\item Amalia Duch, Vladimir Estivill-Castro, Conrado Martínez, “Randomized K-Dimensional Binary Seach Trees”, M-RR/LSI-98-48-R, Universitat Politècnica de Catalunya, Barcelona, 1998.
+	\item C. Martínez y S. Roura, “Randomized binary search trees”, Journal of the ACM, Marzo 1998, Volumen 45, núm. 2, 288$–$323.
+	\item W. Cunto, G. Lau, y Ph. Flajolet, “Analysis of kd-trees: kd-trees improved by local reorganizations”, In F. Dehne, J. R. Sack y N. Santoro editors, Work, Algorithms and Data Structures, 1989, Volumen 382, 24$–$38.
+	\item Andrew W. Moore, “An Introductory tutorial on kd-trees”, Carnegie Mellon University, awm@cs.cmu.edu, 1992. http://www.autonlab.org.
+	\item Luc Devroye, Nicholas Broutin, Ketan Dalal y Erin McLeish, “The kdtreap”, Personal Communication.
 	\item \href{https://p5js.org/es/libraries/}{P5.js}
 	\item \href{https://www.geeksforgeeks.org/}{Geeksforgeeks}
-
 \end{enumerate}
 
 \end{document}
