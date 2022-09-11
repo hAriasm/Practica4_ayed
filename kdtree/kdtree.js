@@ -1,6 +1,50 @@
 k = 2;
 let output = "";
 
+
+
+class BPQ {
+  constructor(capacity) {
+    this.capacity = capacity;
+    this.elements = [];
+  }
+  isFull() {
+    return this.elements.length === this.capacity;
+  }
+  isEmpty() {
+    return this.elements.length === 0;
+  }
+  maxPriority() {
+    return this.elements[this.elements.length - 1].priority;
+  }
+
+  // values() {
+  //   return this.elements.map(function (d) { return d.value; });
+  // }
+
+  enqueue(value, priority) {
+    var queue = this.elements, element = { value: value, priority: priority };
+    if (this.isEmpty()) { queue.push(element); }
+    else {
+      for (var i = 0; i < queue.length; i++) {
+        if (priority < queue[i].priority) {
+          queue.splice(i, 0, element);
+          break;
+        } else if ((i == queue.length - 1) && !this.isFull()) {
+          queue.push(element);
+        }
+      }
+    }
+    // this.elements = queue.slice(0, this.capacity);
+    this.elements = queue.slice(0, this.capacity);
+  }
+}
+
+Object.defineProperty(BPQ.prototype, "values", {
+  get: function() { return this.elements.map(function(d) { return d.value; }); }
+});
+
+
 class Node {
   constructor(point, axis) {
     this.point = point;
@@ -8,7 +52,7 @@ class Node {
     this.right = null;
     this.axis = axis;
   }
-} 
+}
 
 function getHeight(node) {
   let height = -1;
@@ -109,7 +153,7 @@ function closest_point(node, point, depth = 0, best = null) {
     best = node.point;
   }
 
-  console.log("node.point: " + node.point);
+  console.log("node.point: " + node.point + ", best: "+ best + ", bestD: " + distanceSquared(point, best));
 
   if (distanceSquared(point, node.point) < distanceSquared(point, best)) {
     best = node.point;
@@ -130,37 +174,39 @@ function closest_point(node, point, depth = 0, best = null) {
   return bestPoint;
 }
 
-function closests_points(node, point, depth = 0, best = null) {
+let nearest;
+function knn_points(node, point, k) {
+  nearest = new BPQ(k);
+
+  return closests_points(node, point);
+}
+
+function closests_points(node, point, depth = 0) {
   var axis = depth % k;
-  var bestPoint;
 
   if (node == null) {
-    return best;
+    return;
   }
 
-  if (best == null) {
-    best = node.point;
-  }
-
-  console.log("node.point: " + node.point);
-
-  if (distanceSquared(point, node.point) < distanceSquared(point, best)) {
-    best = node.point;
-  }
-
-
+  nearest.enqueue(node, distanceSquared(point, node.point));
+  // console.log(node.point + " / " + distanceSquared(point, node.point));
+  // console.log("queue priority: " + nearest.maxPriority());
+  
   if (point[axis] <= node.point[axis]) {
-    bestPoint = closest_point(node.left, point, depth + 1, best);
-    if (Math.abs(point[axis] - node.point[axis]) < distanceSquared(point, bestPoint)) {
-      bestPoint = closest_point(node.right, point, depth + 1, best);
+    closests_points(node.left, point, depth + 1);
+    if (!nearest.isFull() || Math.abs(point[axis] - node.point[axis]) < nearest.maxPriority()) {
+      closests_points(node.right, point, depth + 1);
     }
   } else {
-    bestPoint = closest_point(node.right, point, depth + 1, best);
-    if (Math.abs(point[axis] - node.point[axis]) < distanceSquared(point, bestPoint)) {
-      bestPoint = closest_point(node.left, point, depth + 1, best);
+    closests_points(node.right, point, depth + 1);
+    if (!nearest.isFull() || Math.abs(point[axis] - node.point[axis]) < nearest.maxPriority()) {
+      closests_points(node.left, point, depth + 1);
     }
   }
-  return bestPoint;
+  
+  // console.log("nearest q: " + nearest.values());
+
+  return { nearestNeighbors: nearest.values };
 }
 
 function distanceSquared(point1, point2) {
@@ -201,71 +247,39 @@ function generate_dot(node) {
 }
 
 
-var queue ;
-function findKNN(node,point,KN = null){
- // console.log("node: " + node  + " point: " + point + " KN: " + KN);
-    KN = KN || 1;
-    console.log("kn: " + KN);
-    queue = new BPQ(KN);
-    scannedNodes = [];
-    console.log(node);
-    return KNN(node,point);
+var queue;
+function findKNN(node, point, KN = null) {
+  // console.log("node: " + node  + " point: " + point + " KN: " + KN);
+  KN = KN || 1;
+  console.log("kn: " + KN);
+  queue = new BPQ(KN);
+  scannedNodes = [];
+  console.log(node);
+  return KNN(node, point);
 }
-function KNN(node,point){
-    if (node === null) return;
-      scannedNodes.push(node);
-    // Agregar punto actual a BPQ
-    console.log("node: " + node  + " point: " + point );
+function KNN(node, point) {
+  if (node === null) return;
+  scannedNodes.push(node);
+  // Agregar punto actual a BPQ
+  console.log("node: " + node + " point: " + point);
 
-    queue.add(node, distanceSquared(node.point, point));
-    // Busca de forma recursiva la mitad del árbol que contiene el punto de prueba
-    if (point[node.axis] < node.point[node.axis]) {//comprobar la izquierda
-        KNN(node.left,point);
-        var otherNode = node.right;
-    }else {// Comprobar la derecha
-        KNN(node.right,point);
-        var otherNode = node.left;
-    }
-    //Si la hiperesfera candidata cruza este plano de división, mira el otro lado del plano examinando el otro subárbol
-    var delta = Math.abs(node.point[node.axis] - point[node.axis]);
-    if (!queue.isFull() || delta < queue.maxPriority()) {
-        KNN(otherNode,point);
-    }
-    return {
-        nearestNodes: queue.values,
-        scannedNodes: scannedNodes,
-        maxDistance: queue.maxPriority()
-    };
-}
-function BPQ(capacity) {
-  this.capacity = capacity;
-  this.elements = [];
-}
-BPQ.prototype.isFull = function() { 
-  return this.elements.length === this.capacity; 
-};
-BPQ.prototype.isEmpty = function() { 
-  return this.elements.length === 0; 
-};
-BPQ.prototype.maxPriority = function() {
-  return this.elements[this.elements.length - 1].priority;
-};
-Object.defineProperty(BPQ.prototype, "values", {
-  get: function() { return this.elements.map(function(d) { return d.value; }); }
-});
-BPQ.prototype.add = function(value, priority) {
-  var q = this.elements,d = { value: value, priority: priority };
-  if (this.isEmpty()) { 
-      q.push(d); 
-  } else {
-      for (var i = 0; i < q.length; i++){
-          if (priority < q[i].priority){
-              q.splice(i, 0, d);
-              break;
-          }else if ( (i == q.length-1) && !this.isFull() ) {
-              q.push(d);
-          }
-      }
+  queue.enqueue(node, distanceSquared(node.point, point));
+  // Busca de forma recursiva la mitad del árbol que contiene el punto de prueba
+  if (point[node.axis] < node.point[node.axis]) {//comprobar la izquierda
+    KNN(node.left, point);
+    var otherNode = node.right;
+  } else {// Comprobar la derecha
+    KNN(node.right, point);
+    var otherNode = node.left;
   }
-  this.elements = q.slice(0, this.capacity);
-}; 
+  //Si la hiperesfera candidata cruza este plano de división, mira el otro lado del plano examinando el otro subárbol
+  var delta = Math.abs(node.point[node.axis] - point[node.axis]);
+  if (!queue.isFull() || delta < queue.maxPriority()) {
+    KNN(otherNode, point);
+  }
+  return {
+    nearestNodes: queue.values,
+    scannedNodes: scannedNodes,
+    maxDistance: queue.maxPriority()
+  };
+}

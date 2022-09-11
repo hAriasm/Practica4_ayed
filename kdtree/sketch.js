@@ -106,6 +106,8 @@ function setup() {
     drawPoint(pointN, 0, 255, 0);
 
 
+    var best2 = closests_points(root, pointN);
+    console.log("closests points: " + best2);
 
    
     rectMode ( CENTER );
