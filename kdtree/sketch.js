@@ -9,6 +9,10 @@ function setup() {
   var height = 600;
   var scalex = 10;
   var scaley = 5;
+
+  root =null;
+  data = null;
+  
   createCanvas();
   createCanvas(width, height);
 
