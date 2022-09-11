@@ -228,6 +228,8 @@ function draw() {
     );
 
     drawPoint([Number((mouseX * maxx) / width).toFixed(0), Number(maxy - (mouseY * maxy) / height).toFixed(0)]);
+    pointN = [Number((mouseX * maxx) / width).toFixed(0), Number(maxy - (mouseY * maxy) / height).toFixed(0)];
+    console.log("PonitN: " + pointP);
     mouseIsPressed = false;
   }
 }
@@ -261,6 +263,7 @@ function drawPoint(point, r = 255, g = 255, b = 255) {
 function graficarKNN() {
     var cantidadK = document.getElementById("cantidadK").value;
     var knn = findKnn(root, pointP, parseInt(cantidadK)).nearestNeighbors;
+    console.log("PonitN graf: " + pointP);
 
   // El siguiente codigo es para limpiar los datos del grafico, obtenidos del KNN (Puntos azules)
   // var data = [
