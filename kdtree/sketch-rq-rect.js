@@ -148,17 +148,26 @@ function setup() {
     // unitTest();}
   }
   
+  function drawPoint(point, r = 255, g = 255, b = 255) {
+    var x = point[0];
+    var y = point[1];
   
-
+    fill(r, g, b);
+    circle((x * width) / maxx, height - (y * height) / maxy, 10); // 200 -y para q se dibuje apropiadamente
+    textSize(16);
+    text(x + ", " + y, (x * width) / maxx + 5, height - (y * height) / maxy - 5);
+  }
+  
 
   function draw() {
     
+    noFill();
     stroke(0, 255, 0);
     strokeWeight(4);
     rectMode(CENTER);
     let range = new Rectangle(mouseX, mouseY, 100, 100);
     rect(range.x, range.y, range.w * 2, range.h * 2);
-   
+    
      
   }
   
