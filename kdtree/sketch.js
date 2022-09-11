@@ -22,25 +22,6 @@ function setup() {
     }
   }
 
-  //-------------------------------------
-  // DATOS DE PREGUNTA 6
-
-  //   var data = [
-  //       [40, 70],
-  //      [70, 130],
-  //       [90, 40],
-  //       [110, 100],
-  //       [140, 110],
-  //     [160, 100],
-  //      [150, 30]
-  //];
-
-  // for (let i = 0; i < data.length; i++) {
-  //     drawPoint(data[i]);
-  // }
-
-
-
   if (mouseIsPressed) {
     console.log("paso por aqui");
     pointInsert(mouseX, mouseY);
