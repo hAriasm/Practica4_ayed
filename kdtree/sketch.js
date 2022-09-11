@@ -184,7 +184,7 @@ function limpiarCuadro(){
             var scalex = 10;
             var scaley = 5;
             createCanvas(width, height);
-        
+            root = null;
             background(0);
             fill(255, 255, 255);
             for (var x = 0; x < width; x += width / scalex) {
