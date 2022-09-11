@@ -25,68 +25,7 @@ function setup() {
     }
   }
 
-  // var data = [];
-  // data.push([1, 3]);
-  // data.push([2, 1]);
-  // data.push([2, 6]);
-  // data.push([5, 5]);
-  // data.push([5, 9]);
-  // data.push([6, 8]);
-  // data.push([7, 2]);
-  // data.push([8, 4]);
-  // data.push([9, 1]);
 
-  //-------------------------------------
-  // DATOS DE PREGUNTA 5
-
-  // var data = [
-  //     [40, 70],
-  //     [70, 130],
-  //     [90, 40],
-  //     [110, 100],
-  //     [140, 110],
-  //     [160, 100]
-  // ];
-
-  //-------------------------------------
-  // DATOS DE PREGUNTA 6
-
-  // var data = [
-  //     [40, 70],
-  //     [70, 130],
-  //     [90, 40],
-  //     [110, 100],
-  //     [140, 110],
-  //     [160, 100],
-  //     [150, 30]
-  // ];
-
-  // data.push([1, 3]);
-  // data.push([2, 1]);
-  // data.push([2, 6]);
-  // data.push([5, 5]);
-  // data.push([5, 9]);
-  // data.push([6, 8]);
-  // data.push([7, 2]);
-  // data.push([8, 4]);
-  // data.push([9, 1]);
-
-  // data.push([40, 70]);
-  // data.push([70, 130]);
-  // data.push([90, 40]);
-  // data.push([100, 100]);
-  // data.push([140, 110]);
-  // data.push([150, 30]);
-  // data.push([175, 100]);
-
-  // for (let i = 0; i < data.length; i++) {
-  //     drawPoint(data[i]);
-  // }
-
-  //   if (mouseIsPressed) {
-  //     console.log("paso por aqui");
-  //     pointInsert(mouseX, mouseY);
-  //   }
 
   data = [];
   for (let i = 0; i < 12; i++) {
@@ -113,20 +52,7 @@ function setup() {
     );
   }
   //-----------------------------------------------------------------------------
-  if (mouseIsPressed) {
-    var x = Math.floor(mouseX);
-    var y = Math.floor(mouseY);
-    data.push([x, y]);
-
-    fill(0, 0, 255);
-    circle((x * width) / maxx, height - (y * height) / maxy, 10); // 200 -y para q se dibuje apropiadamente
-    textSize(16);
-    text(
-      x + ", " + y,
-      (x * width) / maxx + 5,
-      height - (y * height) / maxy - 5
-    );
-  }
+ 
   console.log("data" + data);
   root = build_kdtree(data);
   generate_dot(root);
@@ -135,11 +61,8 @@ function setup() {
   pointN = [140, 90];
   drawPoint(pointN, 0, 255, 0);
   // drawPoint((mouseX+200, mouseY+200),255,0,0)
-
   // unitTest();}
-}
-// rect(mouseX, mouseX, 55, 55);
-//drawPoint((mouseX+200, mouseY+200));
+} 
 
 function setup2() {
   root = null;
@@ -220,24 +143,33 @@ function setup3() {
 
 function draw() {
   if (mouseIsPressed) {
-    console.log(
-      "mouseX: " +
-        (mouseX * maxx) / width +
-        "mouseY:" +
-        (maxy - (mouseY * maxy) / height)
-    );
+    // console.log(
+    //   "mouseX: " +
+    //     (mouseX * maxx) / width +
+    //     "mouseY:" +
+    //     (maxy - (mouseY * maxy) / height)
+    // );
 
-    drawPoint([Number((mouseX * maxx) / width).toFixed(0), Number(maxy - (mouseY * maxy) / height).toFixed(0)]);
-    pointN = [Number((mouseX * maxx) / width).toFixed(0), Number(maxy - (mouseY * maxy) / height).toFixed(0)];
-    console.log("PonitN: " + pointP);
+    drawPoint([obtenerEjex(), obtenerEjey()],0,255,0);
+    pointP = null;
+    pointP = [obtenerEjex(), obtenerEjey()];
+    console.log("PonitP: " + pointP);
     mouseIsPressed = false;
   }
 }
 
+function obtenerEjey() {
+  return Number(maxy - (mouseY * maxy) / height).toFixed(0);
+}
+
+function obtenerEjex() {
+  return Number((mouseX * maxx) / width).toFixed(0);
+}
+
 function graficar_closest_point_brute_force() {
-  console.log("data: " + data + "pointN: " + pointP);
-  var bestFuerzaBruta = closest_point_brute_force(data, pointN);
-  console.log(" best FuerzaBruta: " + bestFuerzaBruta);
+   console.log("pointP: " + pointP);
+  var bestFuerzaBruta = closest_point_brute_force(data, pointP);
+  console.log("punto de FuerzaBruta: (" + bestFuerzaBruta + ")");
 }
 
 function graficar_closet_Point() {
@@ -264,25 +196,9 @@ function graficarKNN() {
     var cantidadK = document.getElementById("cantidadK").value;
     var knn = findKnn(root, pointP, parseInt(cantidadK)).nearestNeighbors;
     console.log("PonitN graf: " + pointP);
+ 
 
-  // El siguiente codigo es para limpiar los datos del grafico, obtenidos del KNN (Puntos azules)
-  // var data = [
-  //     [40, 70],
-  //     [70, 130],
-  //     [90, 40],
-  //     [110, 100],
-  //     [140, 110],
-  //     [160, 100],
-  //     [150, 30]
-  // ];
-  // for (let i = 0; i < data.length; i++) {
-  //     drawPoint(data[i]);
-  //  }
-  //  pointN = [140, 90];
-  //  drawPoint(pointN, 0, 255, 0);
-
-  //---------------------------------------------------
-
+  
   for (let i = 0; i < knn.length; i++) {
     fill(0, 0, 255);
     circle(
