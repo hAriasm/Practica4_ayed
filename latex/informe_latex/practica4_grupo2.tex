@@ -100,8 +100,12 @@
 \section{Repositorio GitHub}
 URL Github: \href{https://github.com/hAriasm/Practica4_ayed}{Repositorio Práctica 4 AyED}
 
+\section{Video de Exposición en YouTube}
+URL YouTube: \href{https://youtube.com}{Video de Exposición en YouTube}
+
+\clearpage
 \section{Marco Teórico}
-\subsection{Kd-Tree}
+\subsection{KD-Tree}
 
 \subsubsection{Definición}
 \paragraph{}
@@ -128,7 +132,7 @@ Si el nodo raíz esta alineado en el plano A, el subárbol izquierdo contendrá 
 \subsubsection{Creación de un árbol 2-D}
 \paragraph{}
 Considere los siguientes puntos en un plano 2-D:
-(3, 6), (17, 15), (13, 15), (6, 12), (9, 1), (2, 7), (10, 19)
+(3, 6), (17, 15), (13, 15), (6, 12), (9, 1), (2, 7), (10, 19). De acuerdo a la figura \ref{fig:ejercicio_01}
 
 \begin{enumerate}
 	\item Insertar (3, 6): dado que el árbol está vacío, conviértalo en el nodo raíz.
@@ -143,7 +147,7 @@ Considere los siguientes puntos en un plano 2-D:
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{img/kdtree_1.png}
-	\caption{Nodos en KDTREE}
+	\caption{Nodos en KD-Tree}
 	\label{fig:kdtree_01}
 \end{figure}
 
@@ -164,43 +168,44 @@ Los 7 puntos se trazarán en el plano X-Y de la siguiente manera:
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{img/kdtree_2.png}
-	\caption{División del espacio en KD-TREE}
+	\caption{División del espacio en KD-Tree}
 	\label{fig:kdtree_02}
 \end{figure}
 
+\clearpage
 \subsection{KNN}
 \subsubsection{Definición}
 \paragraph{}
 K-Nearest Neighbors es uno de los algoritmos de clasificación más básicos pero esenciales en Machine Learning. Pertenece al dominio de aprendizaje supervisado y encuentra una intensa aplicación en el reconocimiento de patrones, minería de datos y detección de intrusos.
 Es ampliamente disponible en escenarios de la vida real ya que no es paramétrico, lo que significa que no hace suposiciones subyacentes sobre la distribución de datos (a diferencia de otros algoritmos como GMM, que asume una distribución gaussiana de los datos dados) .
 Nos dan unos datos previos (también llamados datos de entrenamiento), que clasifican las coordenadas en grupos identificados por un atributo.
-Como ejemplo, considere la siguiente tabla de puntos de datos que contienen dos características:
+Como ejemplo, considere la figura \ref{fig:knn_01} que muestra una tabla de puntos de datos que contienen dos características:
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/knn_01.png}
-	\caption{División del espacio en KD-TREE}
+	\includegraphics[width=0.7\textwidth]{img/knn_01.png}
+	\caption{Datos de entrenamiento en KNN}
 	\label{fig:knn_01}
 \end{figure}
 
-Ahora, dado otro conjunto de puntos de datos (también llamados datos de prueba), asigne estos puntos a un grupo analizando el conjunto de entrenamiento. Tenga en cuenta que los puntos no clasificados están marcados como 'Blanco'.
+Ahora, dado otro conjunto de puntos de datos (también llamados datos de prueba), asigne estos puntos a un grupo analizando el conjunto de entrenamiento. Tenga en cuenta que los puntos no clasificados están marcados como 'Blanco', de acuerdo la la figura \ref{fig:knn_02}
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/knn_02.png}
-	\caption{División del espacio en KD-TREE}
+	\includegraphics[width=0.7\textwidth]{img/knn_02.png}
+	\caption{Datos de prueba en KNN}
 	\label{fig:knn_02}
 \end{figure}
 
 \subsubsection{Intuición}
-Si trazamos estos puntos en un gráfico, podemos ubicar algunos grupos o grupos. Ahora, dado un punto sin clasificar, podemos asignarlo a un grupo observando a qué grupo pertenecen sus vecinos más cercanos. Esto significa que un punto cercano a un grupo de puntos clasificados como "Rojo" tiene una mayor probabilidad de ser clasificado como "Rojo".
+Si trazamos estos puntos en un gráfico, podemos ubicar algunos grupos o grupos. Ahora, dado un punto sin clasificar, podemos asignarlo a un grupo observando a qué grupo pertenecen sus vecinos más cercanos. Esto significa que un punto cercano a un grupo de puntos clasificados como 'Rojo' tiene una mayor probabilidad de ser clasificado como "Rojo".
 Intuitivamente, podemos ver que el primer punto (2.5, 7) debe clasificarse como 'Verde' y el segundo punto (5.5, 4.5) debe clasificarse como 'Rojo'.
 
 \subsubsection{Algoritmo}
 Sea m el número de muestras de datos de entrenamiento. Sea p un punto desconocido.
 
 \begin{enumerate}
-	\item Almacene las muestras de entrenamiento en una matriz de puntos de datos arr[]. Esto significa que cada elemento de esta matriz representa una tupla (x, y).
+	\item Almacene las muestras de entrenamiento en una matriz de puntos de datos arr[ ]. Esto significa que cada elemento de esta matriz representa una tupla (x, y).
 	\item Haz el conjunto S de las K distancias más pequeñas obtenidas. Cada una de estas distancias corresponde a un punto de datos ya clasificado.
 	\item Devuelve la etiqueta mayoritaria entre S.
 \end{enumerate}
@@ -214,58 +219,135 @@ K se puede mantener como un número impar para que podamos calcular una clara ma
 El la imagen \ref{fig:ejercicio_01} se presenta la creación del archivo html.
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/ejercicio_01.png}
+	\includegraphics[width=0.7\textwidth]{img/ejercicio_01.png}
 	\caption{Archivo html}
 	\label{fig:ejercicio_01}
 \end{figure}
 
+\clearpage
 \subsection{Ejercicio N° 2}
+\begin{itemize}
+	\item En la figura \ref{fig:ejercicio_02_build_kdtree} se muestra la funcion \textbf{build\_kdtree}, que construye el KD-Tree y retorna el nodo raiz.
+\end{itemize}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\textwidth]{img/ejercicio_02_build_kdtree.png}
+	\caption{Nodo raiz en el KD-Tree}
+	\label{fig:ejercicio_02_build_kdtree}
+\end{figure}
+
+\begin{itemize}
+	\item En la figura \ref{fig:ejercicio_02_getheight} se muestra el resultado de la funcion \textbf{getHeight}, que retorna la altura de un arbol KD-Tree.
+\end{itemize}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\textwidth]{img/ejercicio_02_getheight.png}
+	\caption{Altura del arbol KD-Tree}
+	\label{fig:ejercicio_02_getheight}
+\end{figure}
+
+\begin{itemize}
+	\item En la figura \ref{fig:ejercicio_02_generate_dot} se muestra el resultado de la funcion \textbf{generate\_dot}, que genera al arbol KD-Tree en formato dot.
+\end{itemize}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\textwidth]{img/ejercicio_02_generate_dot.png}
+	\caption{Altura del arbol KD-Tree}
+	\label{fig:ejercicio_02_generate_dot}
+\end{figure}
+
+\clearpage
 \subsection{Ejercicio N° 3}
+El la imagen \ref{fig:ejercicio_03} se evalua los resultados después de crear el archivo \textit{sketch.js}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\textwidth]{img/ejercicio_03.png}
+	\caption{Evaluación de resultados en archivo \textit{sketch.js}}
+	\label{fig:ejercicio_03}
+\end{figure}
+
+\clearpage
 \subsection{Ejercicio N° 4}
+\begin{itemize}
+	\item En la figura \ref{fig:ejercicio_04_closest_point_brute_force} se muestra la implementación de la función \textit{closest\_point\_force\_brute}.
+\end{itemize}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\textwidth]{img/ejercicio_04_closest_point_brute_force.png}
+	\caption{Implementación de la función \textit{closest\_point\_force\_brute}}
+	\label{fig:ejercicio_04_closest_point_brute_force}
+\end{figure}
+
+\begin{itemize}
+	\item En la figura \ref{fig:ejercicio_04_naive_closest} se muestra la implementación de la función \textit{naive\_closest}.
+\end{itemize}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\textwidth]{img/jercicio_04_naive_closest.png}
+	\caption{Implementación de la función \textit{closest\_point\_force\_brute}}
+	\label{fig:jercicio_04_naive_closest}
+\end{figure}
+
+\clearpage
 \subsection{Ejercicio N° 5}
-\begin{figure}[h!]
-El la imagen \ref{fig:ejercicio_05_1} se muestra el resultado de la implementación de la función closest_point_brute_force y en la imagen \ref{fig:ejercicio_05_2} se muestra el resultado de la implementacion de la función naive_closest_point.
-	\centering
-	\includegraphics[width=0.8\textwidth]{img/ejercicio_05_1.png}
-	\caption{Función closest_point_brute_force}
-	\label{fig:ejercicio_05_1}
-\end{figure}
-
+\begin{itemize}
+	\item En la figura \ref{fig:ejercicio_05_closest_point_brute_force} se muestra evaluación de datos con la función \textit{closest\_point\_force\_brute}.
+\end{itemize}
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/ejercicio_05_2.png}
-	\caption{Función naive_closest_point}
-	\label{fig:ejercicio_05_2}
+	\includegraphics[width=0.7\textwidth]{img/ejercicio_05_closest_point_brute_force.png}
+	\caption{Evaluación de datos con la función \textit{closest\_point\_force\_brute}}
+	\label{fig:ejercicio_05_closest_point_brute_force}
 \end{figure}
 
+\begin{itemize}
+	\item En la figura \ref{fig:ejercicio_05_naive_closest} se muestra evaluación de datos con la función \textit{naive\_closest}.
+\end{itemize}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\textwidth]{img/jercicio_05_naive_closest.png}
+	\caption{Evaluación de datos con la función \textit{naive\_closest}}
+	\label{fig:jercicio_05_naive_closest}
+\end{figure}
+
+\clearpage
 \subsection{Ejercicio N° 6}
-El la imagen \ref{fig:ejercicio_06_1} se muestra el resultado de la implementación de la función closest_point_brute_force y en la imagen \ref{fig:ejercicio_06_2} se muestra el resultado de la implementacion de la función naive_closest_point.
+\begin{itemize}
+	\item En la figura \ref{fig:ejercicio_06_closest_point_brute_force} se muestra evaluación de datos con la función \textit{closest\_point\_force\_brute}.
+\end{itemize}
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/ejercicio_06_1.png}
-	\caption{Función closest_point_brute_force}
-	\label{fig:ejercicio_06_1}
+	\includegraphics[width=0.7\textwidth]{img/ejercicio_06_closest_point_brute_force.png}
+	\caption{Evaluación de datos con la función \textit{closest\_point\_force\_brute}}
+	\label{fig:ejercicio_06_closest_point_brute_force}
 \end{figure}
 
+\begin{itemize}
+	\item En la figura \ref{fig:ejercicio_06_naive_closest} se muestra evaluación de datos con la función \textit{naive\_closest}.
+\end{itemize}
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/ejercicio_06_2.png}
-	\caption{Función naive_closest_point}
-	\label{fig:ejercicio_06_2}
+	\includegraphics[width=0.7\textwidth]{img/jercicio_06_naive_closest.png}
+	\caption{Evaluación de datos con la función \textit{naive\_closest}}
+	\label{fig:jercicio_06_naive_closest}
 \end{figure}
 
+\clearpage
 \subsection{Ejercicio N° 7}
-El la imagen \ref{fig:ejercicio_07} se muestra el resultado de la implementación de la función closest_point.
+El la figura \ref{fig:ejercicio_07} se muestra el resultado de la implementación de la función \textit{closest\_point}.
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{img/ejercicio_07.png}
-	\caption{Función closest_point}
+	\caption{Función \textit{closest\_point}}
 	\label{fig:ejercicio_07}
 \end{figure}
 
-
+\clearpage
 \subsection{Ejercicio N° 8}
-El la imagen \ref{fig:ejercicio_08} se muestra el resultado de la implementación de la función KNN, que retorna los k puntos mas cercanos a un punto.
+El la figura \ref{fig:ejercicio_08} se muestra el resultado de la implementación de la función KNN, que retorna los k puntos mas cercanos a un punto.
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{img/ejercicio_08.png}
@@ -273,28 +355,33 @@ El la imagen \ref{fig:ejercicio_08} se muestra el resultado de la implementació
 	\label{fig:ejercicio_08}
 \end{figure}
 
+\clearpage
 \subsection{Ejercicio N° 9}
-El la imagen \ref{fig:ejercicio_09} se muestra el resultado de la implementación de la función range_query_circle de KD-Tree
+El la figura \ref{fig:ejercicio_09} se muestra el resultado de la implementación de la función \textit{range\_query\_circle} de KD-Tree
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{img/ejercicio_09.png}
-	\caption{Función range_query_circle de KD-Tree}
+	\caption{Función \textit{range\_query\_circle} de KD-Tree}
 	\label{fig:ejercicio_09}
 \end{figure}
 
+\clearpage
 \subsection{Ejercicio N° 10}
-El la imagen \ref{fig:ejercicio_10} se muestra el resultado de la implementación de la función range_query_rec de KD-Tree
+El la figura \ref{fig:ejercicio_10} se muestra el resultado de la implementación de la función \textit{range\_query\_rec} de KD-Tree
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\textwidth]{img/ejercicio_10.png}
-	\caption{Función range_query_rec de KD-Tree}
+	\caption{Función \textit{range\_query\_rec} de KD-Tree}
 	\label{fig:ejercicio_10}
 \end{figure}
 
 \clearpage
 \section{Conclusiones}
 \begin{itemize}
-	\item El quadtree se codifican en un árbol de cuatro hijos no balanceado, y el  octree se codifica en un árbol octal no balanceado.
+	\item Los tiempos tiempos de ejecución de la función \textit{closest\_point} es mas rápida que la función \textit{closest\_point\_force\_brute}
+	\item La función \textit{naive\_closest} en algunas ocasiones no brinda el dato correcto.
+	\item La función \textit{closest\_point} se basa en la función \textit{naive\_closest} pero haciendo mejoras para determación del valor buscado de forma correcta.
+	\item 
 	\item De la bibliografía revisada, se concluye que las aplicaciones más comunes para los QuadTree y OcTree son el Procesamiento de imágenes, generación de mallas e indexado espacial.
 	\item Las estructuras octree son usadas mayormente para partir un espacio tridimensional, dividiéndolo recursivamente en ocho octantes, siendo análogas tridimensionales de los quadtree bidimensionales.
 \end{itemize}
