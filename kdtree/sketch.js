@@ -25,22 +25,11 @@ function setup() {
     }
   }
 
-
-
   data = [];
   for (let i = 0; i < 12; i++) {
     var x = Math.floor(Math.random() * maxx);
     var y = Math.floor(Math.random() * maxy);
     data.push([x, y]);
-
-    //------------------------------------------------------------------------------
-    // 12 DATOS ALEATORIOS
-
-    // var data = [] ;
-    // for (let i = 0; i < 12; i++) {
-    // var x = Math.floor(Math.random() * maxx);
-    // var y = Math.floor(Math.random() * maxy);
-    // data.push([x, y]);
 
     fill(255, 255, 255);
     circle((x * width) / maxx, height - (y * height) / maxy, 10); // 200 -y para q se dibuje apropiadamente
@@ -52,8 +41,7 @@ function setup() {
     );
   }
   //-----------------------------------------------------------------------------
- 
-  console.log("data" + data);
+
   root = build_kdtree(data);
   generate_dot(root);
 
@@ -62,7 +50,7 @@ function setup() {
   drawPoint(pointN, 0, 255, 0);
   // drawPoint((mouseX+200, mouseY+200),255,0,0)
   // unitTest();}
-} 
+}
 
 function setup2() {
   root = null;
@@ -142,32 +130,48 @@ function setup3() {
 }
 
 function draw() {
-  if (mouseIsPressed) {
-    // console.log(
-    //   "mouseX: " +
-    //     (mouseX * maxx) / width +
-    //     "mouseY:" +
-    //     (maxy - (mouseY * maxy) / height)
-    // );
 
-    drawPoint([obtenerEjex(), obtenerEjey()],0,255,0);
+  if (mouseButton === RIGHT) {
+    createCanvas();
+    createCanvas(width, height);
+  
+    background(0);
+    for (var x = 0; x < width; x += width / scalex) {
+      for (var y = 0; y < height; y += height / scaley) {
+        stroke(125, 125, 125);
+        strokeWeight(1);
+        line(x, 0, x, height);
+        line(0, y, width, y);
+      }
+    } 
+ 
+     for (let i = 0; i < data.length; i++) {   
+      drawPoint(data[i])
+    } 
+    drawPoint([obtenerEjex(), obtenerEjey()], 0, 200, 0);
     pointP = null;
+    // console.log("PonitP: " + pointP);
+
     pointP = [obtenerEjex(), obtenerEjey()];
-    console.log("PonitP: " + pointP);
+    // console.log("PonitP drawaaa: " + pointP);
     mouseIsPressed = false;
   }
 }
 
 function obtenerEjey() {
+  console.log("y: " +  Number(maxy - (mouseY * maxy) / height).toFixed(0));
+
   return Number(maxy - (mouseY * maxy) / height).toFixed(0);
 }
 
 function obtenerEjex() {
+  console.log("x: " +  Number((mouseX * maxx) / width).toFixed(0));
+
   return Number((mouseX * maxx) / width).toFixed(0);
 }
 
 function graficar_closest_point_brute_force() {
-   console.log("pointP: " + pointP);
+  console.log("pointP fuerza bruta: " + pointP);
   var bestFuerzaBruta = closest_point_brute_force(data, pointP);
   console.log("punto de FuerzaBruta: (" + bestFuerzaBruta + ")");
 }
@@ -193,19 +197,14 @@ function drawPoint(point, r = 255, g = 255, b = 255) {
 }
 
 function graficarKNN() {
-    var cantidadK = document.getElementById("cantidadK").value;
-    var knn = findKnn(root, pointP, parseInt(cantidadK)).nearestNeighbors;
-    console.log("PonitN graf: " + pointP);
- 
+  var cantidadK = document.getElementById("cantidadK").value;
+  var knn = findKnn(root, pointP, parseInt(cantidadK)).nearestNeighbors;
+  console.log("PonitN graf: " + pointP);
 
-  
   for (let i = 0; i < knn.length; i++) {
     fill(0, 0, 255);
     circle(
-      (knn[i].point[0] * width) / maxx,
-      height - (knn[i].point[1] * height) / maxy,
-      10
-    ); //200-y para q se dibuje apropiadamente
+      (knn[i].point[0] * width) / maxx,height - (knn[i].point[1] * height) / maxy,10); //200-y para q se dibuje apropiadamente
     console.log(knn[i].point);
   }
 }
@@ -279,11 +278,10 @@ function unitTest() {
     console.log("p: " + knn[i].point);
   }
 
-    console.log("k-nearest neighbors");
-    var k = 5;
-    var knn = findKnn(root, pointN, k).nearestNeighbors;
-    for (let i = 0; i < knn.length; i++) {
-        console.log("p: " + knn[i].point);
-    }
-    
+  console.log("k-nearest neighbors");
+  var k = 5;
+  var knn = findKnn(root, pointN, k).nearestNeighbors;
+  for (let i = 0; i < knn.length; i++) {
+    console.log("p: " + knn[i].point);
+  }
 }
