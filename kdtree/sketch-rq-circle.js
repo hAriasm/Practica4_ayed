@@ -16,7 +16,6 @@ class Circulo {
 }
 
 function setup() {
-
   createCanvas();
   createCanvas(width, height);
 
@@ -24,15 +23,12 @@ function setup() {
     var x = Math.floor(Math.random() * maxx);
     var y = Math.floor(Math.random() * maxy);
     data.push([x, y]);
-
   }
 
   root = build_kdtree(data);
 
-
   draw();
 }
-
 
 function drawPoint(point, r = 255, g = 255, b = 255) {
   var x = point[0];
@@ -44,31 +40,20 @@ function drawPoint(point, r = 255, g = 255, b = 255) {
   // text(x + ", " + y, (x * width) / maxx + 5, (y * height) / maxy - 5);
 }
 
-
 function showData() {
   background(0);
-  stroke('blue');
+  stroke("blue");
   strokeWeight(1);
 
   for (let i = 0; i < data.length; i++) {
     x = data[i][0];
     y = data[i][1];
     fill(255, 255, 255, 200);
-    circle(x * width / maxx, height - y * height / maxy, 10);
-    // textSize(8);
-    // text(
-    //   x + ", " + y,
-    //   x * width / maxx + 5,
-    //   height - y * height / maxy - 5
-    // );
-
+    circle((x * width) / maxx, height - (y * height) / maxy, 10); 
   }
-
 }
 
-
 function draw() {
-
   background(0);
 
   showData();
@@ -78,7 +63,7 @@ function draw() {
   strokeWeight(4);
   rectMode(CENTER);
   let radio = 100;
-  let range = new Circulo([mouseX, height - mouseY], radio)
+  let range = new Circulo([mouseX, height - mouseY], radio);
   circle(range.center[0], height - range.center[1], radio * 2);
 
   points = [];
@@ -86,21 +71,6 @@ function draw() {
   // console.log(points.length);
   for (let p of points) {
     strokeWeight(2);
-    drawPoint(p)
+    drawPoint(p);
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
