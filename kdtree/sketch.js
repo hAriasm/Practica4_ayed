@@ -45,13 +45,7 @@ function setup() {
   //-----------------------------------------------------------------------------
 
   root = build_kdtree(data);
-  generate_dot(root);
-
-  // pointN = [Math.floor(Math.random() * maxx), Math.floor(Math.random() * maxy)];
- // pointN = [140, 90];
-//  drawPoint(pointN, 0, 255, 0);
-  // drawPoint((mouseX+200, mouseY+200),255,0,0)
-  // unitTest();}
+  generate_dot(root); 
 }
 
 function setup2() {
@@ -91,6 +85,8 @@ function setup2() {
 
   root = build_kdtree(data);
   generate_dot(root);
+  pointN = [140, 90];
+  drawPoint(pointN, 0, 255, 0);
 }
 function setup3() {
   root = null;
@@ -232,21 +228,7 @@ function limpiarCuadro() {
     }
   }
 }
-
-function limpiarCuadro() {
-  createCanvas(width, height);
-  root = null;
-  background(0);
-  fill(255, 255, 255);
-  for (var x = 0; x < width; x += width / scalex) {
-    for (var y = 0; y < height; y += height / scaley) {
-      stroke(125, 125, 125);
-      strokeWeight(1);
-      line(x, 0, x, height);
-      line(0, y, width, y);
-    }
-  }
-}
+ 
 
 function unitTest() {
   data = [
