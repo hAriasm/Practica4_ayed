@@ -133,7 +133,7 @@ function setup3() {
 
 function draw() {
 
-  if (mouseButton === RIGHT) {
+  if (mouseButton === CENTER) {
     createCanvas();
     createCanvas(width, height);
   
