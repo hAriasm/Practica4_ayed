@@ -68,7 +68,7 @@ function draw() {
 
   points = [];
   points = range_query_circle(root, range.center, radio, points);
-  // console.log(points.length);
+  // console.log("Points found: " + points.length);
   for (let p of points) {
     strokeWeight(2);
     drawPoint(p);

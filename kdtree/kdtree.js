@@ -231,7 +231,7 @@ function inOrder(node) {
 
 function generate_dot(node) {
   // const fs = require("fs");
-  output = null;
+  output = "";
   inOrder(node);
   
   output = "digraph G {" + output + "\n}";
@@ -256,7 +256,6 @@ function range_query_circle(node, center, radio, queue, depth = 0) {
   // console.log("lim inf: " + (center[axis] - radio));
   // console.log("distance: " + distanceSquared(center, node.point));
 
-  var inside = true;
   var partiallyInside = false;
   for (let i = 0; i < k; i++) {
     if (node.point[i] <= center[i] + radio ||

@@ -46,6 +46,8 @@ function setup() {
 
   root = build_kdtree(data);
   generate_dot(root); 
+  
+  console.log("Altura del arbol: " +getHeight(root));
 }
 
 function setup2() {
@@ -85,9 +87,12 @@ function setup2() {
 
   root = build_kdtree(data);
   generate_dot(root);
+  console.log("Altura del arbol: " +getHeight(root));
+
   pointN = [140, 90];
   drawPoint(pointN, 0, 255, 0);
 }
+
 function setup3() {
   root = null;
   data = null;
@@ -122,6 +127,7 @@ function setup3() {
 
   root = build_kdtree(data);
   generate_dot(root);
+  console.log("Altura del arbol: " +getHeight(root));
 
   pointN = [140, 90];
   drawPoint(pointN, 0, 255, 0);
