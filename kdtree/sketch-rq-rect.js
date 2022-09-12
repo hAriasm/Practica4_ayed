@@ -80,7 +80,7 @@ function draw() {
 
   points = [];
   points = range_query_rect(root, range, points);
-  // console.log(points.length);
+  // console.log("Points found: " + points.length);
   for (let p of points) {
     strokeWeight(2);
     drawPoint(p)
