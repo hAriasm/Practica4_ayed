@@ -261,6 +261,7 @@ function range_query_circle(node, center, radio, queue, depth = 0) {
     if (node.point[i] <= center[i] + radio ||
       node.point[i] >= center[i] - radio) {
       partiallyInside = true;
+      break;
     }
   }
 

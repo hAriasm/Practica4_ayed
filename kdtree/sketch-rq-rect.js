@@ -13,6 +13,13 @@ class Rectangle {
     this.center = center
     this.scope = scope;
   }
+
+  contains(point) {
+    return !(point[i] > this.center[i] + this.scope[i] ||
+    point[i] < z.center[i] - this.scope[i]);
+  }
+
+
 }
 
 function setup() {
