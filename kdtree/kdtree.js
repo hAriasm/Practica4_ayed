@@ -244,6 +244,45 @@ function generate_dot(node) {
 }
 
 function range_query_circle(node, center, radio, queue, depth = 0) {
+  var axis = depth % k;
+
+  if (node == null) {
+    return;
+  }
+
+  console.log("node point axis: " + node.point[axis] + ", axis: " + axis);
+  console.log("lim sup: " + (center[axis] + radio));
+  console.log("lim inf: " + (center[axis] - radio));
+
+  var inside = true;
+  var partiallyInside = false;
+  for (let i = 0; i < k; i++) {
+    if (node.point[i] > range.center[i] + range.scope[i] ||
+      node.point[i] < range.center[i] - range.scope[i]) {
+      inside = false;
+    } else {
+      partiallyInside = true;
+    }
+  }
+
+  if (inside == true) {
+    queue.push(node.point);
+  }
+  if (partiallyInside) {
+    range_query_rect(node.right, range, queue, depth + 1);
+    range_query_rect(node.left, range, queue, depth + 1);
+
+  }
+
+  if (node.point[axis] <= range.center[axis] - range.scope[axis]) {
+    range_query_rect(node.right, range, queue, depth + 1);
+  }
+
+  if (node.point[axis] >= range.center[axis] + range.scope[axis]) {
+    range_query_rect(node.left, range, queue, depth + 1);
+  }
+
+  return queue;
 }
 
 function range_query_rect(node, range, queue, depth = 0) {

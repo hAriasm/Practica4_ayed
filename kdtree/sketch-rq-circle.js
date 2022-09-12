@@ -30,7 +30,7 @@ function setup() {
   root = build_kdtree(data);
 
 
-  // drawtmp();
+  drawtmp();
 }
 
 
@@ -55,19 +55,19 @@ function showData() {
     y = data[i][1];
     fill(255, 255, 255, 200);
     circle(x * width / maxx, height - y * height / maxy, 10);
-    // textSize(8);
-    // text(
-    //   x + ", " + y,
-    //   x * width / maxx + 5,
-    //   height - y * height / maxy - 5
-    // );
+    textSize(8);
+    text(
+      x + ", " + y,
+      x * width / maxx + 5,
+      height - y * height / maxy - 5
+    );
 
   }
 
 }
 
 
-function draw() {
+function drawtmp() {
 
   background(0);
 
@@ -77,12 +77,12 @@ function draw() {
   stroke(0, 255, 0);
   strokeWeight(4);
   rectMode(CENTER);
-  let radio = 200;
-  let range = new Circulo([mouseX, height - mouseY], radio)
-  circle(range.center[0], height - range.center[1], radio);
+  let radio = 100;
+  let range = new Circulo([400, 400], radio)
+  circle(range.center[0], height - range.center[1], radio * width / maxx);
 
   points = [];
-  // points = range_query_rect(root, range.center, radio, points);
+  // points = range_query_circle(root, range.center, radio, points);
   // console.log(points.length);
   for (let p of points) {
     strokeWeight(2);
