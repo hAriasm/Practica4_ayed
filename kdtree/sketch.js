@@ -26,15 +26,14 @@ function setup() {
   }
 
   data = [];
-  var cantidadK= document.getElementById("cantidadNodos").value;
-  console.log("cantidadK: " + cantidadK);
-  for (let i = 0; i < cantidadK; i++) {
+  var cantidadK = document.getElementById("cantidadNodos").value;
+   for (let i = 0; i < cantidadK; i++) {
     var x = Math.floor(Math.random() * maxx);
     var y = Math.floor(Math.random() * maxy);
     data.push([x, y]);
 
     fill(255, 255, 255);
-    circle((x * width) / maxx, height - (y * height) / maxy, 10); // 200 -y para q se dibuje apropiadamente
+    circle((x * width) / maxx, height - (y * height) / maxy, 10);
     textSize(16);
     text(
       x + ", " + y,
@@ -42,12 +41,10 @@ function setup() {
       height - (y * height) / maxy - 5
     );
   }
-  //-----------------------------------------------------------------------------
-
+ 
   root = build_kdtree(data);
-  generate_dot(root); 
-  
-  console.log("Altura del arbol: " +getHeight(root));
+  generate_dot(root);
+  console.log("Altura del arbol: " + getHeight(root));
 }
 
 function setup2() {
@@ -64,8 +61,7 @@ function setup2() {
       line(0, y, width, y);
     }
   }
-  //-------------------------------------
-  // DATOS DE PREGUNTA 5
+   // DATOS DE PREGUNTA 5
 
   data = [
     [40, 70],
@@ -87,7 +83,7 @@ function setup2() {
 
   root = build_kdtree(data);
   generate_dot(root);
-  console.log("Altura del arbol: " +getHeight(root));
+  console.log("Altura del arbol: " + getHeight(root));
 
   pointN = [140, 90];
   drawPoint(pointN, 0, 255, 0);
@@ -108,8 +104,7 @@ function setup3() {
     }
   }
 
-  //-------------------------------------
-  // DATOS DE PREGUNTA 6
+   // DATOS DE PREGUNTA 6
 
   data = [
     [40, 70],
@@ -127,16 +122,15 @@ function setup3() {
 
   root = build_kdtree(data);
   generate_dot(root);
-  console.log("Altura del arbol: " +getHeight(root));
+  console.log("Altura del arbol: " + getHeight(root));
 
   pointN = [140, 90];
   drawPoint(pointN, 0, 255, 0);
 }
 
 function draw() {
-
   if (mouseButton === CENTER) {
-    crearCanvasPuntos(); 
+    crearCanvasPuntos();
     drawPoint([obtenerEjex(), obtenerEjey()], 0, 200, 0);
     pointP = null;
     // console.log("PonitP: " + pointP);
@@ -144,7 +138,6 @@ function draw() {
     pointP = [obtenerEjex(), obtenerEjey()];
     // console.log("PonitP drawaaa: " + pointP);
     mouseButton = LEFT;
-  
   }
 }
 
@@ -168,37 +161,33 @@ function crearCanvasPuntos() {
 }
 
 function obtenerEjey() {
-  console.log("y: " +  Number(maxy - (mouseY * maxy) / height).toFixed(0));
+  console.log("y: " + Number(maxy - (mouseY * maxy) / height).toFixed(0));
 
   return Number(maxy - (mouseY * maxy) / height).toFixed(0);
 }
 
 function obtenerEjex() {
-  console.log("x: " +  Number((mouseX * maxx) / width).toFixed(0));
+  console.log("x: " + Number((mouseX * maxx) / width).toFixed(0));
 
   return Number((mouseX * maxx) / width).toFixed(0);
 }
 
 function graficar_closest_point_brute_force() {
-  console.log("pointP fuerza bruta: " + pointP);
   var bestFuerzaBruta = closest_point_brute_force(data, pointP);
   console.log("punto de FuerzaBruta: (" + bestFuerzaBruta + ")");
-     drawPoint([bestFuerzaBruta[0],bestFuerzaBruta[1]],0,0,255);
-   
+  drawPoint([bestFuerzaBruta[0], bestFuerzaBruta[1]], 0, 0, 255);
 }
 
 function graficar_closet_Point() {
   var best2 = closest_point(root, pointP);
   console.log("closest point: " + best2);
-  drawPoint([best2[0],best2[1]],0,255,0);
-
+  drawPoint([best2[0], best2[1]], 0, 255, 0);
 }
 
 function graficar_naive_cl_pt() {
   var best = naive_closest_point(root, pointP);
   console.log("naive closest point: " + best);
-  drawPoint([best[0],best[1]],255,0,0);
-
+  drawPoint([best[0], best[1]], 255, 0, 0);
 }
 
 function drawPoint(point, r = 255, g = 255, b = 255) {
@@ -212,8 +201,8 @@ function drawPoint(point, r = 255, g = 255, b = 255) {
 }
 
 function graficarKNN() {
-  crearCanvasPuntos()
-  
+  crearCanvasPuntos();
+
   var cantidadK = document.getElementById("cantidadK").value;
   var knn = findKnn(root, pointP, parseInt(cantidadK)).nearestNeighbors;
   console.log("PonitN graf: " + pointP);
@@ -221,12 +210,14 @@ function graficarKNN() {
   for (let i = 0; i < knn.length; i++) {
     fill(0, 0, 255);
     circle(
-      (knn[i].point[0] * width) / maxx,height - (knn[i].point[1] * height) / maxy,10); //200-y para q se dibuje apropiadamente
+      (knn[i].point[0] * width) / maxx,
+      height - (knn[i].point[1] * height) / maxy,
+      10
+    ); //200-y para q se dibuje apropiadamente
     console.log(knn[i].point);
   }
 
   drawPoint(pointP, 0, 255, 0);
-
 }
 
 function limpiarCuadro() {
@@ -243,7 +234,6 @@ function limpiarCuadro() {
     }
   }
 }
- 
 
 function unitTest() {
   data = [
