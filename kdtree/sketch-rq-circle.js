@@ -30,7 +30,7 @@ function setup() {
   root = build_kdtree(data);
 
 
-  drawtmp();
+  draw();
 }
 
 
@@ -67,7 +67,7 @@ function showData() {
 }
 
 
-function drawtmp() {
+function draw() {
 
   background(0);
 
@@ -78,11 +78,11 @@ function drawtmp() {
   strokeWeight(4);
   rectMode(CENTER);
   let radio = 100;
-  let range = new Circulo([400, 400], radio)
-  circle(range.center[0], height - range.center[1], radio * width / maxx);
+  let range = new Circulo([mouseX, height - mouseY], radio)
+  circle(range.center[0], height - range.center[1], radio * 2);
 
   points = [];
-  // points = range_query_circle(root, range.center, radio, points);
+  points = range_query_circle(root, range.center, radio, points);
   // console.log(points.length);
   for (let p of points) {
     strokeWeight(2);

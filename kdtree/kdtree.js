@@ -250,36 +250,36 @@ function range_query_circle(node, center, radio, queue, depth = 0) {
     return;
   }
 
-  console.log("node point axis: " + node.point[axis] + ", axis: " + axis);
-  console.log("lim sup: " + (center[axis] + radio));
-  console.log("lim inf: " + (center[axis] - radio));
+  // console.log("node point axis: " + node.point[axis] + ", axis: " + axis);
+  // console.log("lim sup: " + (center[axis] + radio));
+  // console.log("lim inf: " + (center[axis] - radio));
+  // console.log("distance: " + distanceSquared(center, node.point));
 
   var inside = true;
   var partiallyInside = false;
   for (let i = 0; i < k; i++) {
-    if (node.point[i] > range.center[i] + range.scope[i] ||
-      node.point[i] < range.center[i] - range.scope[i]) {
-      inside = false;
-    } else {
+    if (node.point[i] <= center[i] + radio ||
+      node.point[i] >= center[i] - radio) {
       partiallyInside = true;
     }
   }
 
-  if (inside == true) {
+  if (distanceSquared(center, node.point) <= radio) {
+    // console.log("inside!: " + node.point);
     queue.push(node.point);
   }
   if (partiallyInside) {
-    range_query_rect(node.right, range, queue, depth + 1);
-    range_query_rect(node.left, range, queue, depth + 1);
+    range_query_circle(node.right, center, radio, queue, depth + 1);
+    range_query_circle(node.left, center, radio, queue, depth + 1);
 
   }
 
-  if (node.point[axis] <= range.center[axis] - range.scope[axis]) {
-    range_query_rect(node.right, range, queue, depth + 1);
+  if (node.point[axis] <= center[axis] - radio) {
+    range_query_circle(node.right, center, radio, queue, depth + 1);
   }
 
-  if (node.point[axis] >= range.center[axis] + range.scope[axis]) {
-    range_query_rect(node.left, range, queue, depth + 1);
+  if (node.point[axis] >= center[axis] + radio) {
+    range_query_circle(node.left, center, radio, queue, depth + 1);
   }
 
   return queue;
