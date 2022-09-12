@@ -27,7 +27,7 @@ function setup() {
 
   data = [];
   var cantidadK = document.getElementById("cantidadNodos").value;
-   for (let i = 0; i < cantidadK; i++) {
+  for (let i = 0; i < cantidadK; i++) {
     var x = Math.floor(Math.random() * maxx);
     var y = Math.floor(Math.random() * maxy);
     data.push([x, y]);
@@ -41,7 +41,7 @@ function setup() {
       height - (y * height) / maxy - 5
     );
   }
- 
+
   root = build_kdtree(data);
   generate_dot(root);
   console.log("Altura del arbol: " + getHeight(root));
@@ -61,7 +61,7 @@ function setup2() {
       line(0, y, width, y);
     }
   }
-   // DATOS DE PREGUNTA 5
+  // DATOS DE PREGUNTA 5
 
   data = [
     [40, 70],
@@ -104,7 +104,7 @@ function setup3() {
     }
   }
 
-   // DATOS DE PREGUNTA 6
+  // DATOS DE PREGUNTA 6
 
   data = [
     [40, 70],
@@ -160,15 +160,11 @@ function crearCanvasPuntos() {
   }
 }
 
-function obtenerEjey() {
-  console.log("y: " + Number(maxy - (mouseY * maxy) / height).toFixed(0));
-
+function obtenerEjey() { 
   return Number(maxy - (mouseY * maxy) / height).toFixed(0);
 }
 
-function obtenerEjex() {
-  console.log("x: " + Number((mouseX * maxx) / width).toFixed(0));
-
+function obtenerEjex() { 
   return Number((mouseX * maxx) / width).toFixed(0);
 }
 
@@ -213,7 +209,7 @@ function graficarKNN() {
       (knn[i].point[0] * width) / maxx,
       height - (knn[i].point[1] * height) / maxy,
       10
-    ); //200-y para q se dibuje apropiadamente
+    ); 
     console.log(knn[i].point);
   }
 
