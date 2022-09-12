@@ -184,11 +184,15 @@ function graficar_closest_point_brute_force() {
 function graficar_closet_Point() {
   var best2 = closest_point(root, pointP);
   console.log("closest point: " + best2);
+  drawPoint([best2[0],best2[1]],0,255,0);
+
 }
 
 function graficar_naive_cl_pt() {
   var best = naive_closest_point(root, pointP);
   console.log("naive closest point: " + best);
+  drawPoint([best[0],best[1]],255,0,0);
+
 }
 
 function drawPoint(point, r = 255, g = 255, b = 255) {
