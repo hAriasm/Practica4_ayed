@@ -261,20 +261,37 @@ function range_query_rect(node, range, queue, depth = 0) {
   console.log("node point axis: " + node.point[axis] + ", axis: " + axis);
   console.log("lim sup: " + (range.center[axis] + range.scope[axis]));
   console.log("lim inf: " + (range.center[axis] - range.scope[axis]));
-  if (node.point[axis] <= range.center[axis] + range.scope[axis] &&
-    node.point[axis] >= range.center[axis] - range.scope[axis]) {
+
+  var inside = true;
+  var partiallyInside = false;
+  for (let i = 0; i < k; i++) {
+    if (node.point[i] > range.center[i] + range.scope[i] ||
+      node.point[i] < range.center[i] - range.scope[i]) {
+      console.log("not inside: " + node.point);
+      inside = false;
+    } else {
+      partiallyInside = true;
+    }
+  }
+
+  if (inside == true) {
     console.log("inside!: " + node.point);
     queue.push(node.point);
+  }
+  if (partiallyInside) {
     range_query_rect(node.right, range, queue, depth + 1);
     range_query_rect(node.left, range, queue, depth + 1);
-  } else {
-    if (node.point[axis] <= range.center[axis] - range.scope[axis]) {
-      range_query_rect(node.right, range, queue, depth + 1);
-    }
-  
-    if (node.point[axis] >= range.center[axis] + range.scope[axis]) {
-      range_query_rect(node.left, range, queue, depth + 1);
-    }
+
+  }
+
+  if (node.point[axis] <= range.center[axis] - range.scope[axis]) {
+    console.log("go to right");
+    range_query_rect(node.right, range, queue, depth + 1);
+  }
+
+  if (node.point[axis] >= range.center[axis] + range.scope[axis]) {
+    console.log("go to left");
+    range_query_rect(node.left, range, queue, depth + 1);
   }
 
   return queue;
