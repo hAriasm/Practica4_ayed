@@ -20,7 +20,7 @@ function setup() {
   createCanvas();
   createCanvas(width, height);
 
-  for (let i = 0; i < 250; i++) {
+  for (let i = 0; i < 500; i++) {
     var x = Math.floor(Math.random() * maxx);
     var y = Math.floor(Math.random() * maxy);
     data.push([x, y]);
@@ -55,12 +55,12 @@ function showData() {
     y = data[i][1];
     fill(255, 255, 255, 200);
     circle(x * width / maxx, height - y * height / maxy, 10);
-    textSize(8);
-    text(
-      x + ", " + y,
-      x * width / maxx + 5,
-      height - y * height / maxy - 5
-    );
+    // textSize(8);
+    // text(
+    //   x + ", " + y,
+    //   x * width / maxx + 5,
+    //   height - y * height / maxy - 5
+    // );
 
   }
 

@@ -20,7 +20,7 @@ function setup() {
   createCanvas();
   createCanvas(width, height);
 
-  for (let i = 0; i < 250; i++) {
+  for (let i = 0; i < 500; i++) {
     var x = Math.floor(Math.random() * maxx);
     var y = Math.floor(Math.random() * maxy);
     data.push([x, y]);
