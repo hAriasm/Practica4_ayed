@@ -26,7 +26,8 @@ function setup() {
   }
 
   data = [];
-  for (let i = 0; i < 12; i++) {
+  var cantidadK= document.getElementById("cantidadNodos").value;
+  for (let i = 0; i < cantidadK; i++) {
     var x = Math.floor(Math.random() * maxx);
     var y = Math.floor(Math.random() * maxy);
     data.push([x, y]);
@@ -46,8 +47,8 @@ function setup() {
   generate_dot(root);
 
   // pointN = [Math.floor(Math.random() * maxx), Math.floor(Math.random() * maxy)];
-  pointN = [140, 90];
-  drawPoint(pointN, 0, 255, 0);
+ // pointN = [140, 90];
+//  drawPoint(pointN, 0, 255, 0);
   // drawPoint((mouseX+200, mouseY+200),255,0,0)
   // unitTest();}
 }
