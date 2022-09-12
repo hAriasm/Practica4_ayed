@@ -24,12 +24,12 @@ function setup() {
     var x = Math.floor(Math.random() * maxx);
     var y = Math.floor(Math.random() * maxy);
     data.push([x, y]);
-    
+
   }
 
   root = build_kdtree(data);
 
-  
+
   // drawtmp();
 }
 
@@ -80,7 +80,7 @@ function draw() {
 
   points = [];
   points = range_query_rect(root, range, points);
-  console.log(points.length);
+  // console.log(points.length);
   for (let p of points) {
     strokeWeight(2);
     drawPoint(p)

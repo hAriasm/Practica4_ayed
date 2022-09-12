@@ -249,25 +249,19 @@ function range_query_circle(node, center, radio, queue, depth = 0) {
 function range_query_rect(node, range, queue, depth = 0) {
   var axis = depth % k;
 
-  // console.log(range.center[axis] + "-" + range.center[axis+1]);
-  // console.log("w: " + range.scope[axis]);
-  // console.log("h: " + range.scope[axis+1]);
-  // console.log("q: " + queue);
-
   if (node == null) {
     return;
   }
 
-  console.log("node point axis: " + node.point[axis] + ", axis: " + axis);
-  console.log("lim sup: " + (range.center[axis] + range.scope[axis]));
-  console.log("lim inf: " + (range.center[axis] - range.scope[axis]));
+  // console.log("node point axis: " + node.point[axis] + ", axis: " + axis);
+  // console.log("lim sup: " + (range.center[axis] + range.scope[axis]));
+  // console.log("lim inf: " + (range.center[axis] - range.scope[axis]));
 
   var inside = true;
   var partiallyInside = false;
   for (let i = 0; i < k; i++) {
     if (node.point[i] > range.center[i] + range.scope[i] ||
       node.point[i] < range.center[i] - range.scope[i]) {
-      console.log("not inside: " + node.point);
       inside = false;
     } else {
       partiallyInside = true;
@@ -275,7 +269,6 @@ function range_query_rect(node, range, queue, depth = 0) {
   }
 
   if (inside == true) {
-    console.log("inside!: " + node.point);
     queue.push(node.point);
   }
   if (partiallyInside) {
@@ -285,12 +278,10 @@ function range_query_rect(node, range, queue, depth = 0) {
   }
 
   if (node.point[axis] <= range.center[axis] - range.scope[axis]) {
-    console.log("go to right");
     range_query_rect(node.right, range, queue, depth + 1);
   }
 
   if (node.point[axis] >= range.center[axis] + range.scope[axis]) {
-    console.log("go to left");
     range_query_rect(node.left, range, queue, depth + 1);
   }
 
