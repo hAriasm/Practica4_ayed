@@ -27,6 +27,7 @@ function setup() {
 
   data = [];
   var cantidadK= document.getElementById("cantidadNodos").value;
+  console.log("cantidadK: " + cantidadK);
   for (let i = 0; i < cantidadK; i++) {
     var x = Math.floor(Math.random() * maxx);
     var y = Math.floor(Math.random() * maxy);
@@ -181,12 +182,12 @@ function graficar_closest_point_brute_force() {
 }
 
 function graficar_closet_Point() {
-  var best2 = closest_point(root, pointN);
+  var best2 = closest_point(root, pointP);
   console.log("closest point: " + best2);
 }
 
 function graficar_naive_cl_pt() {
-  var best = naive_closest_point(root, pointN);
+  var best = naive_closest_point(root, pointP);
   console.log("naive closest point: " + best);
 }
 
