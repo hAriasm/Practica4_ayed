@@ -130,22 +130,7 @@ function setup3() {
 function draw() {
 
   if (mouseButton === CENTER) {
-    createCanvas();
-    createCanvas(width, height);
-  
-    background(0);
-    for (var x = 0; x < width; x += width / scalex) {
-      for (var y = 0; y < height; y += height / scaley) {
-        stroke(125, 125, 125);
-        strokeWeight(1);
-        line(x, 0, x, height);
-        line(0, y, width, y);
-      }
-    } 
- 
-     for (let i = 0; i < data.length; i++) {   
-      drawPoint(data[i])
-    } 
+    crearCanvasPuntos(); 
     drawPoint([obtenerEjex(), obtenerEjey()], 0, 200, 0);
     pointP = null;
     // console.log("PonitP: " + pointP);
@@ -154,6 +139,25 @@ function draw() {
     // console.log("PonitP drawaaa: " + pointP);
     mouseButton = LEFT;
   
+  }
+}
+
+function crearCanvasPuntos() {
+  createCanvas();
+  createCanvas(width, height);
+
+  background(0);
+  for (var x = 0; x < width; x += width / scalex) {
+    for (var y = 0; y < height; y += height / scaley) {
+      stroke(125, 125, 125);
+      strokeWeight(1);
+      line(x, 0, x, height);
+      line(0, y, width, y);
+    }
+  }
+
+  for (let i = 0; i < data.length; i++) {
+    drawPoint(data[i]);
   }
 }
 
@@ -202,6 +206,8 @@ function drawPoint(point, r = 255, g = 255, b = 255) {
 }
 
 function graficarKNN() {
+  crearCanvasPuntos()
+  
   var cantidadK = document.getElementById("cantidadK").value;
   var knn = findKnn(root, pointP, parseInt(cantidadK)).nearestNeighbors;
   console.log("PonitN graf: " + pointP);
