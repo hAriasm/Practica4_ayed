@@ -212,6 +212,9 @@ function graficarKNN() {
       (knn[i].point[0] * width) / maxx,height - (knn[i].point[1] * height) / maxy,10); //200-y para q se dibuje apropiadamente
     console.log(knn[i].point);
   }
+
+  drawPoint(pointP, 0, 255, 0);
+
 }
 
 function limpiarCuadro() {
